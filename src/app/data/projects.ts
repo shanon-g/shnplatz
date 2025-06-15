@@ -10,12 +10,16 @@ export interface Project {
 
 export const projectsList: Project[] = [
   {
-    name: 'Weather App',
-    language: 'JavaScript',
-    type: 'Web',
+    name: "shn's Platz (Portfolio)",
+    language: 'TypeScript',
+    type: 'Frontend',
     image: '/assets/project1.png',
-    description: 'A simple weather app using OpenWeather API.',
-    techIcons: ['/assets/react_icon.png']
+    description: 'Retro-themed personal portfolio built with Next.js (App Router), TypeScript, and Tailwind CSS. The site is modular, fully responsive, and deployed on Vercel for optimal performance and scalability.',
+    techIcons: [
+      '/assets/nextjs_icon.png',
+      '/assets/typescript_icon.png',
+      '/assets/tailwind_icon.png'
+    ]
   },
   {
     name: 'Portfolio Website',

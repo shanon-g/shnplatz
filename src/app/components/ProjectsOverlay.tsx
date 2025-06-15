@@ -41,13 +41,13 @@ export default function ProjectsOverlay({
             <div className="absolute right-4 flex gap-2">
               <button
                 onClick={() => setShowProjects(false)}
-                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold"
+                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold hover:bg-[#757ed3]"
               >
                 −
               </button>
               <button
                 onClick={() => setShowProjects(false)}
-                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold"
+                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold hover:bg-[#c4576e]"
               >
                 ✕
               </button>
@@ -56,11 +56,11 @@ export default function ProjectsOverlay({
 
           {/* View Tabs */}
             <div className="flex items-center gap-4 px-4 py-2 border-b-[4px] border-[#36312C]">
-                <button onClick={() => setViewMode('list')} className="flex items-center gap-1">
+                <button onClick={() => setViewMode('list')} className="flex items-center gap-1 hover:bg-[#d7d0c4] rounded-sm">
                     <img src="/assets/list_icon.png" className="w-5 h-5" />
                     <span className="font-semibold">List View</span>
                 </button>
-                <button onClick={() => setViewMode('detailed')} className="flex items-center gap-1">
+                <button onClick={() => setViewMode('detailed')} className="flex items-center gap-1 hover:bg-[#d7d0c4] rounded-sm">
                     <img src="/assets/detailed_icon.png" className="w-5 h-5" />
                     <span className="font-semibold">Detailed View</span>
                 </button>
@@ -76,14 +76,14 @@ export default function ProjectsOverlay({
                         <img
                             src={project.image}
                             alt={project.name}
-                            className="w-36 h-28 object-cover border-[3px] border-[#36312C] rounded-xl"
+                            className="w-64 h-36 object-cover border-[3px] border-[#36312C] rounded-xl"
                         />
                         <div className="flex-1">
                             <h3 className="font-bold">{project.name}</h3>
                             <p className="text-sm text-[#7F9795]">{project.description}</p>
                             <div className="flex gap-2 mt-1">
                             {project.techIcons.map((icon, j) => (
-                                <img key={j} src={icon} className="w-5 h-5" alt="tech" />
+                                <img key={j} src={icon} className="w-8 h-8" alt="tech" />
                             ))}
                             </div>
                         </div>

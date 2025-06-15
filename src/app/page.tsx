@@ -80,15 +80,18 @@ export default function Home() {
         <aside className="flex flex-col gap-8 items-center justify-start py-8 px-3">
           <button
             onClick={() => setShowProjects(true)}
-            className="w-40 h-30 hover:bg-[#F9F2E4] rounded-xl p-2 transition flex items-center justify-center"
+            className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >
             <img src="/assets/folder_icon.png" alt="Projects" className="w-full" />
           </button>
-          <button className="w-40 h-30 hover:bg-[#F9F2E4] rounded-xl p-2 transition flex items-center justify-center">
+          <button className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
             <img src="/assets/about_icon.png" alt="About Me" className="w-full" />
           </button>
-          <button className="w-40 h-30 hover:bg-[#F9F2E4] rounded-xl p-2 transition flex items-center justify-center">
+          <button className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
             <img src="/assets/contact_icon.png" alt="Contact Me" className="w-full" />
+          </button>
+          <button className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
+            <img src="/assets/cv_icon.png" alt="Contact Me" className="w-full" />
           </button>
         </aside>
 
