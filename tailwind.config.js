@@ -23,6 +23,12 @@ module.exports = {
         logoPop: 'logoPop 2s ease-out forwards',
       },
     },
+    screens: {
+      xs: '480px',
+      sm: '640px',
+      xl: '1920px'
+      // ...other breakpoints
+    },
   },
   plugins: [],
 }
