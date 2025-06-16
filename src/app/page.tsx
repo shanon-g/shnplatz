@@ -184,7 +184,7 @@ export default function Home() {
       <div className="relative z-50 h-full w-full grid grid-cols-[auto_1fr] grid-rows-[1fr_auto] text-[#36312C]">
         
         {/* Cloud Layers */}
-        <div className="cloud-wrapper absolute top-0 left-0 w-full h-[220px] pointer-events-none overflow-hidden">
+        <div className="cloud-wrapper absolute top-0 left-0 w-full h-[120px] sm:h-[220px] pointer-events-none overflow-hidden">
           {/* Cloud Back Layer */}
           <div className="z-10  opacity-90 cloud-strip animate-clouds-back">
             <img src="/assets/cloudback.png" className="cloud-img" />
@@ -239,34 +239,34 @@ export default function Home() {
 
         
         {/* Sidebar Icons */}
-        <aside className="z-40 flex flex-col gap-8 items-center justify-start py-8 px-3">
+        <aside className="z-40 flex flex-col sm:gap-8 items-center justify-start py-8 px-3">
           <button
             onClick={() => setShowProjects(true)}
-            className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >
             <img src="/assets/folder_icon.png" alt="Projects" className="w-full" />
           </button>
 
           <button
             onClick={() => setShowAbout(true)}
-            className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >
             <img src="/assets/about_icon.png" alt="About Me" className="w-full" />
           </button>
 
           <button 
             onClick={() => setShowContact(true)}
-            className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >
             <img src="/assets/contact_icon.png" alt="Contact Me" className="w-full" />
           </button>
 
-          <button className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
+          <button className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
             <a
               href="/CV_ATS_Shanon.pdf"
               target="_blank"
               download
-              className="w-40 h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+              className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
             >
               <img src="/assets/cv_icon.png" alt="CV" className="w-full" />
             </a>

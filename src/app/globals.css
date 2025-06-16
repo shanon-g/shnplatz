@@ -301,6 +301,33 @@ body {
   animation: cloudScrollFront 50s linear infinite;
 }
 
+@media (max-width: 640px) {
+  .cloud-strip {
+    width: calc(640px * 2);
+  }
+  .cloud-img {
+    width: 640px;
+  }
+
+  @keyframes cloudScrollBack {
+    0% {
+      transform: translateX(-640px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes cloudScrollFront {
+    0% {
+      transform: translateX(-640px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
 
 
 
@@ -338,6 +365,12 @@ body {
     planeFly 8s linear forwards,
     floatAndRotate 3s ease-in-out infinite;
   cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .plane {
+    width: 60px;
+  }
 }
 
 
@@ -400,6 +433,12 @@ body {
   z-index: 17;
   white-space: nowrap;
 }
+@media (max-width: 640px) {
+  .explosion-text {
+    font-size: 0.6rem;
+  }
+}
+
 
 @keyframes wobble {
   0%, 100% {
