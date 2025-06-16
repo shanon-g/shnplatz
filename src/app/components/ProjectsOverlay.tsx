@@ -1,6 +1,8 @@
 'use client';
-import React, { useRef, RefObject, Dispatch, SetStateAction, useState } from 'react';
+import React, { useEffect, RefObject, Dispatch, SetStateAction, useState } from 'react';
 import { Project } from '../data/projects';
+import { getNextZIndex } from '../utils/zIdxManager';
+
 
 interface Props {
   projects: Project[];
@@ -24,6 +26,16 @@ export default function ProjectsOverlay({
 }: Props) {
 
   const [isClosing, setIsClosing] = useState(false);
+  const [zIndex, setZIndex] = useState(40);
+
+  useEffect(() => {
+    // bring to top on open
+    setZIndex(getNextZIndex());
+  }, []);
+
+  const bringToFront = () => {
+    setZIndex(getNextZIndex());
+  };
 
   const handleClose = () => {
   setIsClosing(true);
@@ -36,7 +48,9 @@ export default function ProjectsOverlay({
   return (
     <div
       ref={projectsRef}
-      className="fixed z-40 flex items-center justify-center animate-slideUp 
+      onMouseDown={bringToFront} // bring to front on any click
+      style={{ zIndex }}
+      className="fixed z-100 flex items-center justify-center animate-slideUp 
                 w-[90%] max-w-5xl h-[650px] 
                 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
@@ -45,8 +59,11 @@ export default function ProjectsOverlay({
         <div className="bg-[#F9F2E4] border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10">
           {/* Top Bar */}
           <div
-            onMouseDown={onMouseDown}
-            className="flex items-center justify-center gap-2 bg-[#F9F2E4] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
+            onMouseDown={(e) => {
+              onMouseDown(e);
+              bringToFront();
+            }}
+            className="flex items-center justify-center gap-2 bg-[#efeea4] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
           >
             <img src="/assets/logo.png" alt="logo" className="absolute left-4 w-13 h-13" />
             <span className="font-bold text-center w-full pulse-glow">Projects</span>
@@ -142,7 +159,15 @@ export default function ProjectsOverlay({
                             className="hover:bg-[#ece5d5] transition-colors duration-200"
                           >
                             <td>{i + 1}.</td>
-                            <td className="underline">{project.name}</td>
+                            <td className="underline text-[#36312C]-700 hover:text-[#36312C]-900">
+                              <a
+                                href={project.links?.[0] ?? '#'}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {project.name}
+                              </a>
+                            </td>
                             <td>{project.language}</td>
                             <td>{project.type}</td>
                           </tr>
@@ -150,6 +175,7 @@ export default function ProjectsOverlay({
                       </tbody>
                     </table>
                   </div>
+
                 )}
             </div>
 

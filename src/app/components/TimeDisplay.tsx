@@ -14,7 +14,7 @@ export default function TimeDisplay() {
     return () => clearInterval(timer);
   }, []);
 
-  if (!mounted) return null; // ⛔ prevent hydration mismatch
+  if (!mounted) return null;
 
   const formatTime = (d: Date) =>
     d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
