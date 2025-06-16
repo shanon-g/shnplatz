@@ -261,7 +261,6 @@ export default function Home() {
           {showProjects && (
             <ProjectsOverlay
               projects={projectsList}
-              onClose={() => setShowProjects(false)}
               projectsRef={projectsRef}
               onMouseDown={(e) => onMouseDown(e, projectsRef)}
               setShowProjects={setShowProjects}
@@ -272,7 +271,6 @@ export default function Home() {
 
           {showAbout && (
             <AboutOverlay
-              onClose={() => setShowAbout(false)}
               aboutRef={aboutRef}
               onMouseDown={(e) => onMouseDown(e, aboutRef)}
               setShowAbout={setShowAbout}
@@ -281,7 +279,6 @@ export default function Home() {
 
           {showContact && (
             <ContactOverlay
-              onClose={() => setShowContact(false)}
               contactRef={contactRef}
               onMouseDown={(e) => onMouseDown(e, contactRef)}
               setShowContact={setShowContact}

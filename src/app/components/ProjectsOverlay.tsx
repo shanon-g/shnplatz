@@ -6,7 +6,6 @@ import { getNextZIndex } from '../utils/zIdxManager';
 
 interface Props {
   projects: Project[];
-  onClose: () => void;
   projectsRef: RefObject<HTMLDivElement | null>;
   onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
   setShowProjects: Dispatch<SetStateAction<boolean>>;
@@ -17,7 +16,6 @@ interface Props {
 
 export default function ProjectsOverlay({
   projects,
-  onClose,
   projectsRef,
   onMouseDown,
   setShowProjects,

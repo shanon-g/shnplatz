@@ -3,7 +3,6 @@ import React, { useEffect, RefObject, Dispatch, SetStateAction, useState } from 
 import { getNextZIndex } from '../utils/zIdxManager';
 
 interface Props {
-  onClose: () => void;
   contactRef: RefObject<HTMLDivElement | null>;
   onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
   setShowContact: Dispatch<SetStateAction<boolean>>;
@@ -11,7 +10,6 @@ interface Props {
 
 
 export default function ContactOverlay({
-  onClose,
   contactRef,
   onMouseDown,
   setShowContact,
