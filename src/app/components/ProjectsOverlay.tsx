@@ -26,7 +26,6 @@ export default function ProjectsOverlay({
 
   const [isClosing, setIsClosing] = useState(false);
   const [zIndex, setZIndex] = useState(40);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // bring to top on open
