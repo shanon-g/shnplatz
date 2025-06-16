@@ -18,16 +18,12 @@ module.exports = {
           '100%': { transform: 'scale(1)', opacity: 1 },
         },
       },
-      animation: {
-        fadeOutOverlay: 'introFadeOut 1s ease-out 2s forwards',
-        logoPop: 'logoPop 2s ease-out forwards',
-      },
+      
     },
     screens: {
       xs: '480px',
       sm: '640px',
       xl: '1920px'
-      // ...other breakpoints
     },
   },
   plugins: [],
