@@ -20,6 +20,7 @@ export default function Home() {
   const offset = useRef({ x: 0, y: 0 });
   const activeRef = useRef<React.RefObject<HTMLDivElement | null> | null>(null);
 
+  const [showBlackScreen, setShowBlackScreen] = useState(true);
   const [hideIntro, setHideIntro] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -27,7 +28,7 @@ export default function Home() {
   const [airdrops, setAirdrops] = useState<{ x: number; y: number; id: number }[]>([]);
   const [planeClickable, setPlaneClickable] = useState(true);
 
-  // Spawn the plane every 15s
+  // Spawn plane every 5s
   useEffect(() => {
     const interval = setInterval(() => {
       setShowPlane(true);
@@ -51,7 +52,18 @@ export default function Home() {
     setPlaneClickable(false);
   };
 
+
   useEffect(() => {
+    const blackScreenTimeout = setTimeout(() => {
+      setShowBlackScreen(false);
+    }, 2000); // 2s
+
+    return () => clearTimeout(blackScreenTimeout);
+  }, []);
+
+  useEffect(() => {
+    if (showBlackScreen) return;
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -63,12 +75,12 @@ export default function Home() {
       video.removeEventListener('ended', handleEnded);
       clearTimeout(fallback);
     };
-  }, []);
+  }, [showBlackScreen]);
 
   useEffect(() => {                    // At the start open About Overlay after 4s
     const timer = setTimeout(() => {
       setShowAbout(true);
-    }, 4200);
+    }, 6200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -127,8 +139,13 @@ export default function Home() {
         hideIntro ? 'main-fade-in' : 'pointer-events-none'
       }`}
     >
+      {/* Screen loading buffer */}
+      {showBlackScreen && (
+        <div className="fixed inset-0 z-[99999] bg-black" />
+      )}
+
       {/* Intro Video Overlay */}
-      {!hideIntro && (
+      {!hideIntro && !showBlackScreen && (
         <div className="fixed inset-0 z-[9999] bg-black">
           <video
             ref={videoRef}
