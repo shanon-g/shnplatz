@@ -5,25 +5,25 @@ export interface Project {
   image: string;
   description: string;
   links: string[];
-  techIcons: string[];
+  techIcons: { src: string; label: string }[];
 }
 
 
 export const projectsList: Project[] = [
   {
-    name: 'shn\'s Platz (Portfolio)',
+    name: "shn's Platz (Portfolio)",
     language: 'TypeScript',
     type: 'Frontend',
     image: '/assets/projectImages/shnplatz.png',
     description: 'Retro-themed personal portfolio built with Next.js, TypeScript, and Tailwind CSS. The site is modular, fully responsive, and deployed on Vercel for optimal performance and scalability.',
     links: [
-      'https://github.com/shanon-g/shnplatz',
+      'https://shnplatz.vercel.app',
       'https://github.com/shanon-g/shnplatz'
     ],
     techIcons: [
-      '/assets/typescript_icon.png',
-      '/assets/nextjs_icon.png',
-      '/assets/tailwind_icon.png'
+      { src: '/assets/typescript_icon.png', label: 'TypeScript' },
+      { src: '/assets/nextjs_icon.png', label: 'Next.js' },
+      { src: '/assets/tailwind_icon.png', label: 'Tailwind CSS' }
     ]
   },
   {
@@ -36,10 +36,10 @@ export const projectsList: Project[] = [
       'https://github.com/joannemarcelina/Sofeng-AOL'
     ],
     techIcons: [
-      '/assets/javascript_icon.png',
-      '/assets/react_icon.png',
-      '/assets/express_icon.png',
-      '/assets/mysql_icon.png'
+      { src: '/assets/javascript_icon.png', label: 'JavaScript' },
+      { src: '/assets/react_icon.png', label: 'React' },
+      { src: '/assets/express_icon.png', label: 'Express' },
+      { src: '/assets/mysql_icon.png', label: 'MySQL' }
     ]
   },
   {
@@ -47,14 +47,14 @@ export const projectsList: Project[] = [
     language: 'C# (Unity)',
     type: 'Game',
     image: '/assets/projectImages/76th.png',
-    description: 'A 2D platformer for Indonesia\'s 76th Independence, built with Unity featuring room-based level transitions, shooting mechanics, wall-jumping, and player animation control.',
+    description: "A 2D platformer for Indonesia's 76th Independence, built with Unity featuring room-based level transitions, shooting mechanics, wall-jumping, and player animation control.",
     links: [
       'https://shnplatz.itch.io/76th',
       'https://github.com/shanon-g/76th_Game'
     ],
     techIcons: [
-      '/assets/csharp_icon.png',
-      '/assets/unity_icon.png'
+      { src: '/assets/csharp_icon.png', label: 'C#' },
+      { src: '/assets/unity_icon.png', label: 'Unity' }
     ]
   },
   {
@@ -65,12 +65,12 @@ export const projectsList: Project[] = [
     description: 'IoT prototype detects air quality using DHT11 & MQ135 sensors & activates an air purifier based on LSTM-predicted pollution levels (PPM). Includes MongoDB storage, REST API integration, FastAPI + AI inference, Streamlit dashboard. Collab project; mainly helped model & database.',
     links: [
       'https://www.youtube.com/watch?v=-eJvXcAzU8k&t=8s',
-      'https://l1nq.com/github-Prototype-PAAP',
+      'https://l1nq.com/github-Prototype-PAAP'
     ],
     techIcons: [
-      '/assets/python_icon.png',
-      '/assets/jupyter_icon.png',
-      '/assets/mongodb_icon.png'
+      { src: '/assets/python_icon.png', label: 'Python' },
+      { src: '/assets/jupyter_icon.png', label: 'Jupyter' },
+      { src: '/assets/mongodb_icon.png', label: 'MongoDB' }
     ]
   },
   {
@@ -80,12 +80,12 @@ export const projectsList: Project[] = [
     image: '/assets/projectImages/asl.png',
     description: 'Trained a deep learning model to classify American Sign Language (ASL) alphabet using a MobileNetV2 base with data augmentation and fine-tuning. Achieved 99.08% F1 Score on test set using 85k+ training images and class balancing. Collab Project',
     links: [
-      'https://github.com/shanon-g/asl',
+      'https://github.com/shanon-g/asl'
     ],
     techIcons: [
-      '/assets/python_icon.png',
-      '/assets/jupyter_icon.png',
-      '/assets/tensorflow_icon.png'
+      { src: '/assets/python_icon.png', label: 'Python' },
+      { src: '/assets/jupyter_icon.png', label: 'Jupyter' },
+      { src: '/assets/tensorflow_icon.png', label: 'TensorFlow' }
     ]
   },
   {
@@ -93,12 +93,12 @@ export const projectsList: Project[] = [
     language: 'C',
     type: 'Game',
     image: '/assets/projectImages/bubblefizzpop.png',
-    description: 'A console-based arcade shooting game written in C. Players control a cannon to shoot balls upward and destroy falling targets labeled with decreasing values (3→2→1). The game includes movement mechanics, progressive difficulty via random waves, a scoring system, and a built-in tutorial. Features win/lose conditions, interactive UI, and trail effects using ASCII characters.',
+    description: 'A console-based arcade shooting game written in C. Players control a cannon to shoot balls & destroy falling targets labeled with decreasing values (3→2→1). Includes movement mechanics, random waves, scoring system. Features win/lose conditions & trail effects using ASCII characters.',
     links: [
       'https://github.com/shanon-g/bubbleFizzpop'
     ],
     techIcons: [
-      '/assets/c_icon.png'
+      { src: '/assets/c_icon.png', label: 'C' }
     ]
   },
   {
@@ -111,9 +111,9 @@ export const projectsList: Project[] = [
       'https://github.com/shanon-g/cwShop'
     ],
     techIcons: [
-      '/assets/javascript_icon.png',
-      '/assets/html_icon.png',
-      '/assets/css_icon.png',
+      { src: '/assets/javascript_icon.png', label: 'JavaScript' },
+      { src: '/assets/html_icon.png', label: 'HTML' },
+      { src: '/assets/css_icon.png', label: 'CSS' }
     ]
-  },
+  }
 ];

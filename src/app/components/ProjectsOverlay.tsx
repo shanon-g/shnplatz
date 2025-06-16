@@ -27,6 +27,8 @@ export default function ProjectsOverlay({
 
   const [isClosing, setIsClosing] = useState(false);
   const [zIndex, setZIndex] = useState(40);
+  const [activeIcon, setActiveIcon] = useState<number | null>(null);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // bring to top on open
@@ -132,11 +134,28 @@ export default function ProjectsOverlay({
                                 </div>
                               </div>
                               
-                              <div className="flex gap-2 mt-2"> {/* ADJUST margin for spacing */}
+                              <div className="flex gap-2 mt-1 flex-row flex-wrap items-center">
                                 {project.techIcons.map((icon, j) => (
-                                  <img key={j} src={icon} className="w-8 h-8 xs:w-5 xs:h-5" alt="tech" />
+                                  <div
+                                    key={j}
+                                    className={`group cube-wrapper-sm relative ${flippedIndex === j ? 'flipped' : ''}`}
+                                    onClick={() => {
+                                      if (window.innerWidth < 768) {
+                                        setFlippedIndex(prev => (prev === j ? null : j)); // toggle
+                                      }
+                                    }}
+                                  >
+                                    <div className="cube-inner-sm">
+                                      <div className="cube-face-sm cube-front-sm">
+                                        <img src={icon.src} alt={icon.label} className="w-8 h-8 object-contain" />
+                                      </div>
+                                      <div className="cube-face-sm cube-back-sm text-[9px]">{icon.label}</div>
+                                    </div>
+                                  </div>
                                 ))}
                               </div>
+
+
                             </div>
                           </div>
                       ))}

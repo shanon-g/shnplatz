@@ -19,6 +19,8 @@ export default function AboutOverlay({
 
     const [isClosing, setIsClosing] = useState(false);
     const [zIndex, setZIndex] = useState(40);
+    const [flippedSkillIndex, setFlippedSkillIndex] = useState<number | null>(null);
+
     
       useEffect(() => {
         // bring to top on open
@@ -155,7 +157,15 @@ export default function AboutOverlay({
                             { icon: '/assets/html_icon.png', label: 'HTML' },
                             { icon: '/assets/css_icon.png', label: 'CSS' },
                           ].map((tech, i) => (
-                            <div key={i} className="cube-wrapper">
+                            <div
+                              key={i}
+                              className={`cube-wrapper ${flippedSkillIndex === i ? 'flipped' : ''}`}
+                              onClick={() => {
+                                if (window.innerWidth < 768) {
+                                  setFlippedSkillIndex(prev => (prev === i ? null : i));
+                                }
+                              }}
+                            >
                               <div className="cube-inner">
                                 <div className="cube-face cube-front">
                                   <img src={tech.icon} alt={tech.label} className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
@@ -183,7 +193,15 @@ export default function AboutOverlay({
                             { icon: '/assets/nodejs_icon.png', label: 'Node.js' },
                             { icon: '/assets/django_icon.png', label: 'Django' },
                           ].map((tech, i) => (
-                            <div key={i} className="cube-wrapper">
+                            <div
+                              key={i}
+                              className={`cube-wrapper ${flippedSkillIndex === i ? 'flipped' : ''}`}
+                              onClick={() => {
+                                if (window.innerWidth < 768) {
+                                  setFlippedSkillIndex(prev => (prev === i ? null : i));
+                                }
+                              }}
+                            >
                               <div className="cube-inner">
                                 <div className="cube-face cube-front">
                                   <img src={tech.icon} alt={tech.label} className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
@@ -209,7 +227,15 @@ export default function AboutOverlay({
                             { icon: '/assets/jupyter_icon.png', label: 'Jupyter' },
                             { icon: '/assets/unity_icon.png', label: 'Unity' },
                           ].map((tech, i) => (
-                            <div key={i} className="cube-wrapper">
+                            <div
+                              key={i}
+                              className={`cube-wrapper ${flippedSkillIndex === i ? 'flipped' : ''}`}
+                              onClick={() => {
+                                if (window.innerWidth < 768) {
+                                  setFlippedSkillIndex(prev => (prev === i ? null : i));
+                                }
+                              }}
+                            >
                               <div className="cube-inner">
                                 <div className="cube-face cube-front">
                                   <img src={tech.icon} alt={tech.label} className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
@@ -221,7 +247,13 @@ export default function AboutOverlay({
                         </div>
                       </div>
                     </div>
+                    
 
+                    <div className="border-t-4 border-[#36312C] pt-10 mt-8">
+                      <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10 relative inline-block w-full skill_motion">
+                        <span className="relative z-10">^v^</span>
+                      </h2>
+                    </div>
 
                 </div>
             </div>
