@@ -62,7 +62,7 @@ export const projectsList: Project[] = [
     language: 'Python',
     type: 'IoT, Deep Learning',
     image: '/assets/projectImages/paap.png',
-    description: 'IoT prototype detects air quality using DHT11 & MQ135 sensors & activates an air purifier based on LSTM-predicted pollution levels (PPM). Includes MongoDB storage, REST API integration, FastAPI + AI inference, Streamlit dashboard. Collab project; mainly helped model & database.',
+    description: 'IoT prototype detects air quality with DHT11 & MQ135 sensors & activates air purifier based on LSTM-predicted pollution levels. Includes MongoDB storage, REST API, FastAPI + AI, Streamlit dashboard. Collab project; mainly helped model & database.',
     links: [
       'https://www.youtube.com/watch?v=-eJvXcAzU8k&t=8s',
       'https://l1nq.com/github-Prototype-PAAP'
@@ -93,7 +93,7 @@ export const projectsList: Project[] = [
     language: 'C',
     type: 'Game',
     image: '/assets/projectImages/bubblefizzpop.png',
-    description: 'A console-based arcade shooting game written in C. Players control a cannon to shoot balls & destroy falling targets labeled with decreasing values (3→2→1). Includes movement mechanics, random waves, scoring system. Features win/lose conditions & trail effects using ASCII characters.',
+    description: 'Console arcade game written in C. Players control a cannon to shoot balls & destroy falling targets labeled with decreasing values (3→2→1). Includes movement mechanics, random waves, scoring system. Features win/lose conditions & trail effects using ASCII.',
     links: [
       'https://github.com/shanon-g/bubbleFizzpop'
     ],

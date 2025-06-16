@@ -2,6 +2,7 @@
 import React, { useEffect, RefObject, Dispatch, SetStateAction, useState } from 'react';
 import { Project } from '../data/projects';
 import { getNextZIndex } from '../utils/zIdxManager';
+import ProjectCard from './ProjectCard';
 
 
 interface Props {
@@ -25,7 +26,7 @@ export default function ProjectsOverlay({
 
   const [isClosing, setIsClosing] = useState(false);
   const [zIndex, setZIndex] = useState(40);
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // bring to top on open
@@ -100,61 +101,7 @@ export default function ProjectsOverlay({
                 {viewMode === 'detailed' ? (
                     <div className="space-y-2">
                       {projects.map((project, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-4 p-4 py-10 sm:py-5 rounded-lg hover:bg-[#ece5d5] transition-colors duration-200"
-                          >
-                            <img
-                              src={project.image}
-                              alt={project.name}
-                              className="w-36 h-24 sm:w-78 sm:h-48 object-cover border-[3px] border-[#36312C] rounded-xl"
-                            />
-                            
-                            <div className="flex-1 flex flex-col justify-between h-48">
-                              <div>
-                                <h3 className="font-bold sm:text-base text-sm">{project.name}</h3>
-                                <p className="sm:text-sm text-xs text-[#726e5f]">{project.description}</p>
-                                
-                                <div className="mt-2 sm:text-sm text-xs text-[#726e5f]">
-                                  <p className="font-semibold text-[#36312C] mb-1">Links:</p>
-                                  {project.links.map((link, index) => (
-                                    <a 
-                                      key={index}
-                                      href={link}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="block hover:underline text-blue-600"
-                                    >
-                                      {link}
-                                    </a>
-                                  ))}
-                                </div>
-                              </div>
-                              
-                              <div className="flex gap-2 mt-1 flex-row flex-wrap items-center">
-                                {project.techIcons.map((icon, j) => (
-                                  <div
-                                    key={j}
-                                    className={`group cube-wrapper-sm relative ${flippedIndex === j ? 'flipped' : ''}`}
-                                    onClick={() => {
-                                      if (window.innerWidth < 768) {
-                                        setFlippedIndex(prev => (prev === j ? null : j)); // toggle
-                                      }
-                                    }}
-                                  >
-                                    <div className="cube-inner-sm">
-                                      <div className="cube-face-sm cube-front-sm">
-                                        <img src={icon.src} alt={icon.label} className="w-8 h-8 object-contain" />
-                                      </div>
-                                      <div className="cube-face-sm cube-back-sm text-[9px]">{icon.label}</div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-
-
-                            </div>
-                          </div>
+                        <ProjectCard key={i} project={project} />
                       ))}
                     </div>
                 ) : (
