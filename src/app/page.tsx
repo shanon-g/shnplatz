@@ -77,10 +77,10 @@ export default function Home() {
     };
   }, [showBlackScreen]);
 
-  useEffect(() => {                    // At the start open About Overlay after 4s
+  useEffect(() => {                    // At the start open About Overlay after 6s
     const timer = setTimeout(() => {
       setShowAbout(true);
-    }, 6200);
+    }, 6600);
 
     return () => clearTimeout(timer);
   }, []);
