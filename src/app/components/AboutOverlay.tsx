@@ -251,6 +251,9 @@ export default function AboutOverlay({
                       <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10 relative inline-block w-full skill_motion">
                         <span className="relative z-10">^v^</span>
                       </h2>
+                      <p className="text-center text-base sm:text-base mb-10 relative inline-block w-full">
+                        <span className="relative z-10">Hint: Click on planes!</span>
+                      </p>
                     </div>
 
                 </div>
