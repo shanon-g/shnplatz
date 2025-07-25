@@ -99,7 +99,7 @@ export default function AboutOverlay({
                             <div>: Computer Science - Software Engineering</div>
 
                             <div className="font-bold">GPA</div>
-                            <div>: 3.86 (up to 3rd semester)</div>
+                            <div>: 3.9 (up to 3rd semester)</div>
                         </div>
 
                         <div>
