@@ -22,7 +22,11 @@ export default function ProjectCard({ project }: Props) {
     project.category === 'major' ? 'hover:bg-[#F0CFCF]' : 'hover:bg-[#E0D0FF]';
 
   return (
-    <div className={`flex flex-col sm:flex-row items-start gap-4 p-4 sm:py-5 rounded-lg ${hoverTone} transition-colors duration-200`}>
+    <div
+      className={`flex flex-col sm:flex-row items-start gap-3 sm:gap-4
+                  px-1 py-2 sm:px-4 sm:py-5
+                  rounded-lg ${hoverTone} transition-colors duration-200`}
+    >
       <img
         src={project.image}
         alt={project.name}
