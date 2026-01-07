@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { verifyDeleteToken } from '@/lib/deleteToken';
@@ -7,8 +7,12 @@ const PutSchema = z.object({
   status: z.enum(['new', 'seen']),
 });
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
-  const id = context.params.id;
+type Context = {
+  params: { id: string };
+};
+
+export async function PUT(req: NextRequest, { params }: Context) {
+  const id = params.id;
 
   const adminToken = req.headers.get('x-admin-token');
   if (!adminToken || adminToken !== process.env.ADMIN_EDIT_TOKEN) {
@@ -24,14 +28,17 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 
   const parsed = PutSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Validation failed', details: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Validation failed', details: parsed.error.flatten() },
+      { status: 400 }
+    );
   }
 
   const { status } = parsed.data;
 
   const { data, error } = await supabaseAdmin
     .from('suggestions')
-    .update({ status, edited_at: new Date().toISOString() })
+    .update({ status })
     .eq('id', id)
     .select('*')
     .single();
@@ -40,13 +47,12 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
   return NextResponse.json({ item: data });
 }
 
-export async function DELETE(req: Request, context: { params: { id: string } }) {
-  const id = context.params.id;
+export async function DELETE(req: NextRequest, { params }: Context) {
+  const id = params.id;
 
   const adminToken = req.headers.get('x-admin-token');
   const isAdmin = adminToken && adminToken === process.env.ADMIN_EDIT_TOKEN;
 
-  // Public delete allowed ONLY if valid x-delete-token exists (memory-only token)
   const token = req.headers.get('x-delete-token');
   const ownerDeleteOk = token && verifyDeleteToken(token, id);
 
@@ -59,4 +65,3 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
 
   return NextResponse.json({ ok: true });
 }
-
