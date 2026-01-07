@@ -265,7 +265,7 @@ export default function Home() {
             <a
               href="/CV_ATS_Shanon.pdf"
               target="_blank"
-              download
+              rel="noopener noreferrer"
               className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
             >
               <img src="/assets/cv_icon.png" alt="CV" className="w-full" />
