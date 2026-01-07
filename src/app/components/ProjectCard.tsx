@@ -22,18 +22,20 @@ export default function ProjectCard({ project }: Props) {
     project.category === 'major' ? 'hover:bg-[#F0CFCF]' : 'hover:bg-[#E0D0FF]';
 
   return (
-    <div
-      className={`flex flex-col sm:flex-row items-start gap-3 sm:gap-4
-                  px-1 py-2 sm:px-4 sm:py-5
-                  rounded-lg ${hoverTone} transition-colors duration-200`}
+    <div className={`flex flex-col sm:flex-row sm:items-stretch gap-3 sm:gap-4
+      px-2 py-2 sm:p-4 rounded-lg ${hoverTone} transition-colors duration-200`}
     >
-      <img
-        src={project.image}
-        alt={project.name}
-        className="w-full h-48 sm:w-78 sm:h-48 object-cover border-[3px] border-[#36312C] rounded-xl"
-      />
+      <div className="w-full sm:w-78 shrink-0">
+        <div className="aspect-video w-full overflow-hidden border-[3px] border-[#36312C] rounded-xl bg-[#d7d0c4]">
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
 
-      <div className="flex-1 flex flex-col justify-between h-48">
+      <div className="flex-1 min-w-0 flex flex-col gap-2">
         <div>
           <h3 className="font-bold sm:text-base text-sm">{project.name}</h3>
           <p className="sm:text-sm text-xs text-[#726e5f]">{project.description}</p>
