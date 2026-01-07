@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import crypto from 'crypto';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 import { hasProfanity } from '@/lib/profanity';
 import { makeDeleteToken } from '@/lib/deleteToken';
 import type { SuggestionChannel } from '@/types/suggestion';
@@ -29,6 +29,8 @@ function hashIp(ip: string) {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const channel = searchParams.get('channel') as SuggestionChannel | null;
+
+  const supabaseAdmin = getSupabaseAdmin();
 
   const query = supabaseAdmin
     .from('suggestions')
@@ -81,6 +83,7 @@ export async function POST(req: Request) {
   const hourCutoff = new Date(now - 60 * 60_000).toISOString(); // 1 hour
 
   // Cooldown check last 15s
+  const supabaseAdmin = getSupabaseAdmin();
   const { count: recentCount, error: recentErr } = await supabaseAdmin
     .from('suggestions')
     .select('id', { count: 'exact', head: true })

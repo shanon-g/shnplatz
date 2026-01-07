@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 import { verifyDeleteToken } from '@/lib/deleteToken';
 
 const PutSchema = z.object({
@@ -35,6 +35,7 @@ export async function PUT(
 
   const { status } = parsed.data;
 
+  const supabaseAdmin = getSupabaseAdmin();
   const { data, error } = await supabaseAdmin
     .from('suggestions')
     .update({ status })
@@ -61,7 +62,8 @@ export async function DELETE(
   if (!isAdmin && !ownerDeleteOk) {
     return NextResponse.json({ error: 'Unauthorized delete' }, { status: 401 });
   }
-
+  
+  const supabaseAdmin = getSupabaseAdmin();
   const { error } = await supabaseAdmin.from('suggestions').delete().eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
