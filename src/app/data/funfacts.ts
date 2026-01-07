@@ -1,0 +1,15 @@
+export const funFacts = [
+    "I have a popcorn addiction",
+    "I love Twice (girl-group)",
+    "I can solve a Rubik's Cube",
+    "Teaching is my hidden passion",
+    "Minecraft made me pursue coding",
+    "I can't work efficiently with music playing",
+    "How are you :O",
+    "I hate flowers",
+    "cats.",
+    "\"on Wednesdays we wear pink!\"",
+    "One of my favorite movies is 'Knives Out'",
+    "Thank you for visiting ^^",
+    "I have a bad habit of not finishing video games",
+];

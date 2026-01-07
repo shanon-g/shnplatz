@@ -4,8 +4,11 @@ import { useRef, useState, useEffect } from 'react';
 import TimeDisplay from './components/TimeDisplay';
 import ProjectsOverlay from './components/ProjectsOverlay';
 import { projectsList } from './data/projects';
+import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
+import SuggestionsOverlay from './components/SuggestionsOverlay';
+
 
 export default function Home() {
   const [showProjects, setShowProjects] = useState(false);
@@ -19,6 +22,9 @@ export default function Home() {
   const pos = useRef({ x: 0, y: 0 });
   const offset = useRef({ x: 0, y: 0 });
   const activeRef = useRef<React.RefObject<HTMLDivElement | null> | null>(null);
+
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
   const [showBlackScreen, setShowBlackScreen] = useState(true);
   const [hideIntro, setHideIntro] = useState(false);
@@ -84,20 +90,6 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const funFacts = [
-    "I have a popcorn addiction",
-    "I love Twice",
-    "I can solve a Rubik's Cube",
-    "Teaching is my hidden passion",
-    "Minecraft made me pursue coding",
-    "I can't work with music playing",
-    "How are you :O",
-    "I hate flowers",
-    "cats.",
-    "\"on Wednesdays we wear pink!\"",
-  ];
-
 
   const onMouseDown = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -271,6 +263,14 @@ export default function Home() {
               <img src="/assets/cv_icon.png" alt="CV" className="w-full" />
             </a>
           </button>
+
+          <button
+            onClick={() => setShowSuggestions(true)}
+            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+          >
+            <img src="/assets/suggestions_icon.png" alt="SUGGESTIONS" className="w-full" />
+          </button>
+
         </aside>
 
         {/* Main Panel */}
@@ -299,6 +299,14 @@ export default function Home() {
               contactRef={contactRef}
               onMouseDown={(e) => onMouseDown(e, contactRef)}
               setShowContact={setShowContact}
+            />
+          )}
+
+          {showSuggestions && (
+            <SuggestionsOverlay
+              suggestionsRef={suggestionsRef}
+              onMouseDown={(e) => onMouseDown(e, suggestionsRef)}
+              setShowSuggestions={setShowSuggestions}
             />
           )}
         </main>
