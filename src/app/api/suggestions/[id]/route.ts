@@ -7,12 +7,11 @@ const PutSchema = z.object({
   status: z.enum(['new', 'seen']),
 });
 
-type Context = {
-  params: { id: string };
-};
-
-export async function PUT(req: NextRequest, { params }: Context) {
-  const id = params.id;
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
 
   const adminToken = req.headers.get('x-admin-token');
   if (!adminToken || adminToken !== process.env.ADMIN_EDIT_TOKEN) {
@@ -47,8 +46,11 @@ export async function PUT(req: NextRequest, { params }: Context) {
   return NextResponse.json({ item: data });
 }
 
-export async function DELETE(req: NextRequest, { params }: Context) {
-  const id = params.id;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
 
   const adminToken = req.headers.get('x-admin-token');
   const isAdmin = adminToken && adminToken === process.env.ADMIN_EDIT_TOKEN;
