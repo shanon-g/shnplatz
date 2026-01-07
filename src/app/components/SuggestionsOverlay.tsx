@@ -66,8 +66,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || 'Failed to load');
       setItems(data.items || []);
-    } catch (e: any) {
-      setError(e?.message ?? 'Failed to load');
+    } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : 'Failed to load';
+        setError(msg);
     } finally {
       setLoading(false);
     }
@@ -106,8 +107,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       requestAnimationFrame(() => scrollToBottom('smooth'));
       setDeleteTokens((prev) => ({ ...prev, [created.id]: token }));
       setMessage('');
-    } catch (e: any) {
-      setError(e?.message ?? 'Failed to send');
+    } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : 'Failed to send';
+        setError(msg);
     }
   };
 
@@ -139,8 +141,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
         delete next[id];
         return next;
         });
-    } catch (e: any) {
-        setError(e?.message ?? 'Delete failed');
+    } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : 'Delete failed';
+        setError(msg);
     }
   };
 
@@ -160,8 +163,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
 
       const updated: SuggestionRow = data.item;
       setItems((prev) => prev.map((x) => (x.id === id ? updated : x)));
-    } catch (e: any) {
-      setError(e?.message ?? 'Update failed');
+    } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : 'Update failed';
+        setError(msg);
     }
   };
 
