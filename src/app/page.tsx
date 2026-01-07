@@ -34,6 +34,8 @@ export default function Home() {
   const [airdrops, setAirdrops] = useState<{ x: number; y: number; id: number }[]>([]);
   const [planeClickable, setPlaneClickable] = useState(true);
 
+  const [homeReady, setHomeReady] = useState(false);
+
   // Spawn plane every 5s
   useEffect(() => {
     const interval = setInterval(() => {
@@ -146,10 +148,18 @@ export default function Home() {
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
+            onEnded={() => {
+              setHomeReady(true);
+            }}
           />
         </div>
       )}
 
+      {homeReady ? (
+        <div data-testid="home-ready" className="sr-only">
+          ready
+        </div>
+      ) : null}
 
       {/* Background Grid */}
       <div
