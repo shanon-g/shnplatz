@@ -264,7 +264,7 @@ export default function Home() {
             </a>
           </button>
 
-          <button
+          <button data-testid="open-suggestions"
             onClick={() => setShowSuggestions(true)}
             className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >

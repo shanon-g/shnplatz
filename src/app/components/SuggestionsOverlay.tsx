@@ -248,7 +248,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
               {/* Owner tools (optional) */}
               <div className="mt-4 p-3 rounded-lg border-[3px] border-[#36312C] bg-[#1B2140] text-xs">
                 <div className="font-bold mb-2">Owner tools</div>
-                <input
+                <input data-testid="owner-token-input"
                   value={ownerToken}
                   onChange={(e) => setOwnerToken(e.target.value)}
                   placeholder="Admin token (not saved)"
@@ -328,7 +328,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                             )}
 
                             {isOwner && m.status === 'new' ? (
-                                <button
+                                <button data-testid={`mark-seen-${m.id}`}
                                     onClick={() => updateStatus(m.id, 'seen')}
                                     className="text-xs px-3 py-1 rounded-lg border-[3px] border-[#36312C] bg-[#2B3057] text-[#F9F2E4] hover:bg-[#353C6B] transition-colors"
                                 >
