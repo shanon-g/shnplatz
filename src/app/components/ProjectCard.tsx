@@ -18,8 +18,11 @@ export default function ProjectCard({ project }: Props) {
     }));
   };
 
+  const hoverTone =
+    project.category === 'major' ? 'hover:bg-[#F0CFCF]' : 'hover:bg-[#E0D0FF]';
+
   return (
-    <div className="flex flex-col sm:flex-row items-start gap-4 p-4 sm:py-5 sm:py-5 rounded-lg hover:bg-[#ece5d5] transition-colors duration-200">
+    <div className={`flex flex-col sm:flex-row items-start gap-4 p-4 sm:py-5 rounded-lg ${hoverTone} transition-colors duration-200`}>
       <img
         src={project.image}
         alt={project.name}

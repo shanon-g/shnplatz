@@ -40,7 +40,8 @@ export default function AboutOverlay({
   return (
     <div
       ref={aboutRef}
-      onMouseDown={bringToFront} // bring to front on any click
+      onPointerDownCapture={bringToFront} // bring to front on any click
+      onTouchStartCapture={bringToFront}  // bring to front on any click
       style={{ zIndex }}
       className="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[500px] 
                 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"

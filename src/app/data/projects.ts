@@ -2,6 +2,7 @@ export interface Project {
   name: string;
   language: string;
   type: string;
+  category: 'major' | 'minor';
   image: string;
   description: string;
   links: string[];
@@ -14,6 +15,7 @@ export const projectsList: Project[] = [
     name: "shn's Platz (Portfolio)",
     language: 'TypeScript',
     type: 'Frontend',
+    category: "major",
     image: '/assets/projectImages/shnplatz.png',
     description: 'Retro-themed personal portfolio built with Next.js, TypeScript, and Tailwind CSS. The site is modular, fully responsive, and deployed on Vercel for optimal performance and scalability.',
     links: [
@@ -30,6 +32,7 @@ export const projectsList: Project[] = [
     name: 'Skill Bridge',
     language: 'JavaScript',
     type: 'Fullstack',
+    category: "minor",
     image: '/assets/projectImages/skillbridge.png',
     description: 'A matchmaking platform for collaborative skill exchange, built with React (Vite), Express, and MySQL in JavaScript. Features include swipe-to-match profiles, real-time messaging, and JWT-based authentication. Collab project; mainly made backend.',
     links: [
@@ -46,6 +49,7 @@ export const projectsList: Project[] = [
     name: '76th (2D Platformer)',
     language: 'C# (Unity)',
     type: 'Game',
+    category: "major",
     image: '/assets/projectImages/76th.png',
     description: "A 2D platformer for Indonesia's 76th Independence, built with Unity featuring room-based level transitions, shooting mechanics, wall-jumping, and player animation control.",
     links: [
@@ -61,6 +65,7 @@ export const projectsList: Project[] = [
     name: 'Portable Automatic Air Purifier - IoT',
     language: 'Python',
     type: 'IoT, Deep Learning',
+    category: "major",
     image: '/assets/projectImages/paap.png',
     description: 'IoT prototype detects air quality with DHT11 & MQ135 sensors & activates air purifier based on LSTM-predicted pollution levels. Includes MongoDB storage, REST API, FastAPI + AI, Streamlit dashboard. Collab project; mainly helped model & database.',
     links: [
@@ -77,6 +82,7 @@ export const projectsList: Project[] = [
     name: 'ASL Alphabet Classifier',
     language: 'Python',
     type: 'Computer Vision, Deep Learning',
+    category: "minor",
     image: '/assets/projectImages/asl.png',
     description: 'Trained a deep learning model to classify American Sign Language (ASL) alphabet using a MobileNetV2 base with data augmentation and fine-tuning. Achieved 99.08% F1 Score on test set using 85k+ training images and class balancing. Collab Project',
     links: [
@@ -92,6 +98,7 @@ export const projectsList: Project[] = [
     name: 'Bubble FizzPop',
     language: 'C',
     type: 'Game',
+    category: "minor",
     image: '/assets/projectImages/bubblefizzpop.png',
     description: 'Console arcade game written in C. Players control a cannon to shoot balls & destroy falling targets labeled with decreasing values (3→2→1). Includes movement mechanics, random waves, scoring system. Features win/lose conditions & trail effects using ASCII.',
     links: [
@@ -105,6 +112,7 @@ export const projectsList: Project[] = [
     name: 'Christian Wijaya (Simple e-Commerce)',
     language: 'JavaScript',
     type: 'Frontend',
+    category: "minor",
     image: '/assets/projectImages/cw.png',
     description: 'A very simple luxury fashion brand website built with HTML, CSS, & JavaScript. Features responsive pages for product listings (filters), detail views, and event registration. Includes interactive elements like dynamic image previews, scroll-to-top buttons, and mobile-friendly navigation.',
     links: [
