@@ -1,6 +1,15 @@
 'use client';
 
-import React, { Dispatch, RefObject, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type { SuggestionChannel, SuggestionRow } from '@/types/suggestion';
 import { getNextZIndex } from '../utils/zIdxManager';
 
@@ -26,10 +35,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToBottom = (behavior: ScrollBehavior = 'auto') => {
-    // Scroll the bottom marker into view (most reliable)
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = 'auto') => {
     bottomRef.current?.scrollIntoView({ behavior, block: 'end' });
-  };
+  }, []);
 
   // Memory-only delete tokens (lost on refresh) => delete allowed only before refresh
   const [deleteTokens, setDeleteTokens] = useState<Record<string, string>>({});
@@ -58,7 +66,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
     }, 300);
   };
 
-  const fetchItems = async (ch: SuggestionChannel) => {
+  const fetchItems = useCallback(async (ch: SuggestionChannel) => {
     setLoading(true);
     setError(null);
     try {
@@ -72,15 +80,15 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchItems(channel);
-  }, [channel]);
+  }, [channel, fetchItems]);
 
   useEffect(() => {
     scrollToBottom('auto');
-  }, [items, channel]);
+  }, [items, channel, scrollToBottom]);
 
   const send = async () => {
     setError(null);
@@ -102,7 +110,6 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       const created: SuggestionRow = data.item;
       const token: string = data.deleteToken;
 
-      // update UI immediately
       setItems((prev) => [...prev, created]);
       requestAnimationFrame(() => scrollToBottom('smooth'));
       setDeleteTokens((prev) => ({ ...prev, [created.id]: token }));
@@ -118,12 +125,11 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
 
     const headers: Record<string, string> = {};
 
-    // admin can delete anytime
     if (isOwner) {
       headers['x-admin-token'] = ownerToken;
     } else {
       const token = deleteTokens[id];
-      if (!token) return; // no token => no delete
+      if (!token) return;
       headers['x-delete-token'] = token;
     }
 
@@ -183,9 +189,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />
 
-        {/* Window */}
         <div className="border-[4px] sm:border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10 overflow-hidden bg-[#12162A]">
-          {/* Top Bar */}
           <div
             onMouseDown={(e) => {
               onMouseDown(e);
@@ -215,9 +219,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
             </div>
           </div>
 
-          {/* Body */}
           <div className="flex flex-1 min-h-0 flex-col sm:flex-row">
-            {/* Sidebar */}
             <div
               className="w-full sm:w-[210px] shrink-0 bg-[#161B33]
                 border-b-[4px] sm:border-b-0 sm:border-r-[4px] border-[#36312C]
@@ -252,7 +254,6 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                 </div>
               </div>
 
-              {/* Owner tools (optional) */}
               <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg border-[3px] border-[#36312C] bg-[#1B2140] text-[10px] sm:text-xs">
                 <div className="font-bold mb-2">Owner tools</div>
                 <input
@@ -262,15 +263,11 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                   placeholder="Admin token (not saved)"
                   className="w-full px-2 py-2 rounded-md bg-[#12162A] border-[2px] border-[#36312C] outline-none text-xs sm:text-sm"
                 />
-                <div className="opacity-70 mt-2">
-                  For “Update” (status) tests. Leave empty for public view.
-                </div>
+                <div className="opacity-70 mt-2">For “Update” (status) tests. Leave empty for public view.</div>
               </div>
             </div>
 
-            {/* Chat area */}
             <div className="flex-1 flex flex-col min-w-0 bg-[#12162A]">
-              {/* Messages */}
               <div
                 ref={messagesContainerRef}
                 className="flex-1 min-h-0 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-3"
@@ -284,13 +281,11 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                     const canDelete = isOwner || Boolean(deleteTokens[m.id]);
                     return (
                       <div key={m.id} data-testid={`msg-${m.id}`} className="flex gap-2 sm:gap-3 items-start">
-                        {/* Avatar dot */}
                         <div
                           className="w-7 h-7 sm:w-10 sm:h-10 rounded-full border-[2px] sm:border-[3px] border-[#36312C] shrink-0"
                           style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#22306B' }}
                         />
 
-                        {/* Bubble */}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
                             <span className="text-[#F9F2E4] font-bold text-sm sm:text-base">
@@ -301,7 +296,6 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                               {new Date(m.created_at).toLocaleString()}
                             </span>
 
-                            {/* status badge (owner updates) */}
                             <span
                               className="ml-auto text-[10px] sm:text-xs px-2 py-[1px] sm:py-[2px] rounded-full border-[2px] border-[#36312C] text-[#F9F2E4]"
                               style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#1B2140' }}
@@ -314,7 +308,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                             className="mt-1 p-2 sm:p-3 rounded-lg sm:rounded-xl border-[2px] sm:border-[3px] text-[#F9F2E4] break-words text-xs sm:text-sm"
                             style={{
                               borderColor: m.status === 'new' ? '#7E4040' : '#36312C',
-                              backgroundColor: m.status === 'new' ? '#231A2D' : '#1B2140', // subtle tint for "new"
+                              backgroundColor: m.status === 'new' ? '#231A2D' : '#1B2140',
                             }}
                           >
                             {m.message}
@@ -350,10 +344,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                     );
                   })
                 )}
-                <div ref={bottomRef} /> {/* bottom marker for scrolling */}
+                <div ref={bottomRef} />
               </div>
 
-              {/* Composer */}
               <div className="border-t-[3px] sm:border-t-[4px] border-[#36312C] p-2 sm:p-3 bg-[#161B33]">
                 {error ? (
                   <div className="mb-2 text-xs sm:text-sm px-3 py-2 rounded-lg border-[2px] sm:border-[3px] border-[#36312C] bg-[#2A1330] text-[#F9F2E4]">
@@ -389,7 +382,6 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
               </div>
             </div>
           </div>
-          {/* End Body */}
         </div>
       </div>
     </div>
