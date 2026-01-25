@@ -8,6 +8,7 @@ import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
 import SuggestionsOverlay from './components/SuggestionsOverlay';
+import JourneyOverlay from './components/JourneyOverlay';
 
 
 export default function Home() {
@@ -15,6 +16,9 @@ export default function Home() {
   const [viewMode, setViewMode] = useState<'list' | 'detailed'>('detailed');
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
+
+  const [showJourney, setShowJourney] = useState(false);
+  const journeyRef = useRef<HTMLDivElement | null>(null);
 
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -241,7 +245,7 @@ export default function Home() {
 
         
         {/* Sidebar Icons */}
-        <aside className="z-40 flex flex-col sm:gap-8 items-center justify-start py-8 px-3">
+        <aside className="z-40 flex flex-col sm:gap-5 items-center justify-start py-4 px-3">
           <button
             onClick={() => setShowProjects(true)}
             className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
@@ -279,6 +283,13 @@ export default function Home() {
             className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
           >
             <img src="/assets/suggestions_icon.png" alt="SUGGESTIONS" className="w-full" />
+          </button>
+
+          <button
+            onClick={() => setShowJourney(true)}
+            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+          >
+            <img src="/assets/journey_icon.png" alt="Journey" className="w-full" />
           </button>
 
         </aside>
@@ -319,6 +330,15 @@ export default function Home() {
               setShowSuggestions={setShowSuggestions}
             />
           )}
+
+          {showJourney && (
+            <JourneyOverlay
+              journeyRef={journeyRef}
+              onMouseDown={(e) => onMouseDown(e, journeyRef)}
+              setShowJourney={setShowJourney}
+            />
+          )}
+
         </main>
 
         {/* Footer */}
