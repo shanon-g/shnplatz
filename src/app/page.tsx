@@ -8,7 +8,7 @@ import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
 import SuggestionsOverlay from './components/SuggestionsOverlay';
-import JourneyOverlay from './components/JourneyOverlay';
+// import JourneyOverlay from './components/JourneyOverlay';
 
 
 export default function Home() {
@@ -331,13 +331,13 @@ export default function Home() {
             />
           )}
 
-          {showJourney && (
+          {/* {showJourney && (
             <JourneyOverlay
               journeyRef={journeyRef}
               onMouseDown={(e) => onMouseDown(e, journeyRef)}
               setShowJourney={setShowJourney}
             />
-          )}
+          )} */}
 
         </main>
 
