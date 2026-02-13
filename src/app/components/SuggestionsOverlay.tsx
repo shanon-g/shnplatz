@@ -27,7 +27,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToBottom = (behavior: ScrollBehavior = 'auto') => {
-    // Scroll the bottom marker into view (most reliable)
+    // Scroll the bottom marker into view
     bottomRef.current?.scrollIntoView({ behavior, block: 'end' });
   };
 
@@ -178,7 +178,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       className="fixed flex items-center justify-center animate-slideUp touch-manipulation
         w-[96vw] sm:w-[94vw] max-w-6xl
         h-[88vh] sm:h-[82vh] max-h-[900px] min-h-[560px] sm:min-h-[650px]
-        left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />

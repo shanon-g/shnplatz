@@ -44,7 +44,7 @@ export default function AboutOverlay({
       onTouchStartCapture={bringToFront}  // bring to front on any click
       style={{ zIndex }}
       className="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[500px] 
-                left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />

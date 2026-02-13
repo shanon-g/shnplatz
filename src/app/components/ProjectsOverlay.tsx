@@ -105,7 +105,7 @@ export default function ProjectsOverlay({
       className="fixed flex items-center justify-center animate-slideUp
                 w-[96vw] max-w-6xl
                 h-[80vh] max-h-[900px] min-h-[650px]
-                left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                left-1/2 top-[47%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />

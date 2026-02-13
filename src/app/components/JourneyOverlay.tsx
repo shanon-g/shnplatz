@@ -117,6 +117,10 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const [isPlaying, setIsPlaying] = useState(false);
   const hasAutoplayedRef = useRef(false);
 
+  // --- Speed State ---
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const playbackSpeedRef = useRef(1);
+
   const [timeSec, setTimeSec] = useState(0);
   const timeSecRef = useRef(0);
 
@@ -183,6 +187,13 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   useEffect(() => {
     galleryOpenRef.current = galleryOpen;
   }, [galleryOpen]);
+
+  // Sync state to ref and update HTML video speeds if they exist
+  useEffect(() => {
+    playbackSpeedRef.current = playbackSpeed;
+    if (arcadeVideoRef.current) arcadeVideoRef.current.playbackRate = playbackSpeed;
+    if (tvVideoRef.current) tvVideoRef.current.playbackRate = playbackSpeed;
+  }, [playbackSpeed]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -366,7 +377,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     const src = getPicImage(picName);
     if (!src) return;
 
-    // store exact time from action if possible
     const action = actionRef.current;
     const exactT = action ? clamp(action.time, 0, TOTAL_SECONDS) : timeSecRef.current;
     setTimeline(exactT);
@@ -674,6 +684,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
         if (shouldRun) {
           action.paused = false;
+          action.timeScale = playbackSpeedRef.current;
           mixer.update(dt);
 
           const t = clamp(action.time, 0, TOTAL_SECONDS);
@@ -745,10 +756,10 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
       onTouchStartCapture={bringToFront}
       style={{ zIndex }}
       className="fixed flex items-center justify-center
-                w-[98vw]
-                max-w-none sm:max-w-6xl lg:max-w-6xl
+                w-[94vw]
+                max-w-none sm:max-w-[1088px] lg:max-w-[1088px]
                 max-h-[92vh]
-                left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />
@@ -772,7 +783,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
             </div>
           </div>
 
-          <div className="p-2 sm:p-4 pt-2 sm:pt-4">
+          <div className="p-2 sm:p-4 pt-2 sm:pt-2">
             <div
               ref={viewportRef}
               className={`relative w-full aspect-[16/9] bg-black rounded-lg overflow-hidden border-[3px] sm:border-[4px] border-[#36312C]
@@ -803,6 +814,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
           <div className="px-2 sm:px-4 pb-2 sm:pb-3">
             <div className="bg-[#deb170] border-[2px] sm:border-[3px] border-[#36312C] rounded-xl p-2 sm:p-3 shadow-[6px_6px_0_0_#36312C]">
+              
               <div className="flex flex-wrap items-center gap-2 justify-between">
                 <div className="flex items-center gap-2">
                   <button
@@ -831,10 +843,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
                   >
                     ⏭
                   </button>
-
-                  <div className="mt-2 text-[8px] sm:text-xs font-bold text-[#36312C] opacity-80">
-                        Hover to see titles, click to enhance pictures!
-                  </div>
                 </div>
 
                 {galleryOpen && (
@@ -842,6 +850,29 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
                     Gallery open • video paused
                   </div>
                 )}
+              </div>
+
+              {/* Speed */}
+              <div className="mt-1 flex items-center justify-between">
+                <div className="text-[8px] sm:text-xs font-bold text-[#36312C] opacity-80">
+                  Hover to see titles, click to enhance pictures!
+                </div>
+                
+                <div className="flex gap-1 sm:gap-2">
+                  {[1, 2, 4].map((speed) => (
+                    <button
+                      key={speed}
+                      onClick={() => setPlaybackSpeed(speed)}
+                      disabled={!isLoaded || galleryOpen}
+                      className={`px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-md border-[2px] border-[#36312C] transition-colors disabled:opacity-50
+                        ${playbackSpeed === speed 
+                          ? 'bg-[#c4576e] text-[#F9F2E4]' 
+                          : 'bg-[#F9F2E4] text-[#36312C] hover:bg-[#b8d9d7]'}`}
+                    >
+                      {speed}x
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className={`mt-2 ${galleryOpen ? 'opacity-40 pointer-events-none' : ''}`}>
@@ -861,6 +892,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
                   <span>{TOTAL_SECONDS}s</span>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

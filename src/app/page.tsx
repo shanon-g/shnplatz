@@ -131,9 +131,17 @@ export default function Home() {
     activeRef.current = null;
   };
 
+  const handleCloseAll = () => {
+    setShowProjects(false);
+    setShowAbout(false);
+    setShowContact(false);
+    setShowSuggestions(false);
+    setShowJourney(false);
+  };
+
   return (
     <div
-      className={`relative h-screen w-screen bg-[#C1E3E1] overflow-hidden transition-opacity duration-700 ${
+      className={`relative h-[100dvh] w-screen bg-[#C1E3E1] overflow-hidden transition-opacity duration-700 ${
         hideIntro ? 'main-fade-in' : 'pointer-events-none'
       }`}
     >
@@ -245,57 +253,81 @@ export default function Home() {
 
         
         {/* Sidebar Icons */}
-        <aside className="z-40 flex flex-col sm:gap-5 items-center justify-start py-4 px-3">
+        <aside className="z-40 flex flex-col items-center justify-evenly py-1 px-1 sm:py-2 sm:px-3 min-h-0 overflow-hidden h-full">
           <button
             onClick={() => setShowProjects(true)}
-            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
           >
-            <img src="/assets/folder_icon.png" alt="Projects" className="w-full" />
+            <img 
+              src="/assets/folder_icon.png" 
+              alt="Projects" 
+              className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]"
+            />
           </button>
 
           <button
             onClick={() => setShowAbout(true)}
-            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
           >
-            <img src="/assets/about_icon.png" alt="About Me" className="w-full" />
+            <img 
+              src="/assets/about_icon.png" 
+              alt="About Me" 
+              className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]" 
+            />
           </button>
 
           <button 
             onClick={() => setShowContact(true)}
-            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
           >
-            <img src="/assets/contact_icon.png" alt="Contact Me" className="w-full" />
+            <img 
+              src="/assets/contact_icon.png" 
+              alt="Contact Me" 
+              className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]" 
+            />
           </button>
 
-          <button className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center">
+          <button>
             <a
               href="/CV_ATS_Shanon.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+              className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
             >
-              <img src="/assets/cv_icon.png" alt="CV" className="w-full" />
+              <img 
+                src="/assets/cv_icon.png" 
+                alt="CV" 
+                className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]" 
+              />
             </a>
           </button>
 
           <button data-testid="open-suggestions"
             onClick={() => setShowSuggestions(true)}
-            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
           >
-            <img src="/assets/suggestions_icon.png" alt="SUGGESTIONS" className="w-full" />
+            <img 
+              src="/assets/suggestions_icon.png" 
+              alt="Suggestions" 
+              className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]" 
+            />
           </button>
 
           <button
             onClick={() => setShowJourney(true)}
-            className="w-25 h-20 sm:w-40 sm:h-30 hover:bg-[#7F9795] rounded-xl p-2 transition flex items-center justify-center"
+            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-1 transition flex items-center justify-center flex-shrink"
           >
-            <img src="/assets/journey_icon.png" alt="Journey" className="w-full" />
+            <img 
+              src="/assets/journey_icon.png" 
+              alt="Journey" 
+              className="h-[14dvh] w-auto object-contain max-w-[100px] sm:max-w-[160px]" 
+            />
           </button>
 
         </aside>
 
         {/* Main Panel */}
-        <main className="relative">
+        <main className="relative min-h-0">
           {showProjects && (
             <ProjectsOverlay
               projects={projectsList}
@@ -342,15 +374,13 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer className="opacity-95 z-200 col-span-2 bg-[#7F9795] border-t-[4px] border-[#36312C] px-4 py-3 flex justify-between items-center text-[#F9F2E4] text-sm">
-          <div className="relative group flex items-center">
+        <footer className="opacity-95 z-[200] col-span-2 bg-[#7F9795] border-t-[4px] border-[#36312C] px-4 py-3 flex justify-between items-center text-[#F9F2E4] text-sm relative">
+          <div className="relative flex items-center">
+            
+            {/* Circle Button*/}
             <button
-              onClick={() => {
-                setShowProjects(false);
-                setShowAbout(false);
-                setShowContact(false);
-              }}
-              className="rounded-full w-12 h-12 bg-[#F9F2E4] border-[3px] border-[#36312C] flex items-center justify-center pulse-glow transition hover:scale-105"
+              onClick={handleCloseAll}
+              className="peer rounded-full w-12 h-12 bg-[#F9F2E4] border-[3px] border-[#36312C] flex items-center justify-center pulse-glow transition hover:scale-105 relative z-10"
             >
               <img
                 src="/assets/logo.png"
@@ -359,10 +389,15 @@ export default function Home() {
               />
             </button>
 
-            {/* Hover Text */}
-            <span className="ml-3 text-[#36312C] font-bold text-base opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute left-full top-1/2 -translate-y-1/2 whitespace-nowrap z-50">
+            {/* Label */}
+            <span 
+              className="ml-2 sm:ml-4 px-2 py-1 sm:px-3 sm:py-1.5 bg-[#F9F2E4] text-[#36312C] border-[2px] border-[#36312C] 
+                rounded-lg shadow-[2px_2px_0px_#36312C] font-extrabold text-[10px] sm:text-sm uppercase tracking-wider pointer-events-none 
+                opacity-60 origin-left transition-all duration-300 peer-hover:opacity-100 peer-hover:scale-110 whitespace-nowrap z-0"
+            >
               Close All
             </span>
+            
           </div>
 
           <div className="flex gap-6 items-center">
