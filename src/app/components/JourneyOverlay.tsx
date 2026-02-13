@@ -130,7 +130,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const [galleryOpen, setGalleryOpen] = useState(false);
   const galleryOpenRef = useRef(false);
 
-  const [galleryKey, setGalleryKey] = useState<string | null>(null);
   const [galleryTitle, setGalleryTitle] = useState<string>('');
   const [gallerySrc, setGallerySrc] = useState<string>('');
 
@@ -160,16 +159,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const hoveredRef = useRef<any>(null);
   const hoveredBaseRef = useRef<{ pos: any; scale: any } | null>(null);
 
-  // Screens + videos
-  const arcadeScreenRef = useRef<any>(null);
-  const tvScreenRef = useRef<any>(null);
-
-  const arcadeVideoRef = useRef<HTMLVideoElement | null>(null);
-  const tvVideoRef = useRef<HTMLVideoElement | null>(null);
-
-  const arcadeTexRef = useRef<any>(null);
-  const tvTexRef = useRef<any>(null);
-
   const isTouchRef = useRef(false);
 
   const beats = useMemo(() => BEATS, []);
@@ -191,8 +180,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   // Sync state to ref and update HTML video speeds if they exist
   useEffect(() => {
     playbackSpeedRef.current = playbackSpeed;
-    if (arcadeVideoRef.current) arcadeVideoRef.current.playbackRate = playbackSpeed;
-    if (tvVideoRef.current) tvVideoRef.current.playbackRate = playbackSpeed;
   }, [playbackSpeed]);
 
   useEffect(() => {
@@ -219,32 +206,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     }, 300);
   };
 
-  const makeVideo = (src: string) => {
-    const v = document.createElement('video');
-    v.src = src;
-    v.crossOrigin = 'anonymous';
-    v.preload = 'auto';
-    v.muted = true;
-    v.playsInline = true;
-    v.loop = true;
-    v.load();
-    return v;
-  };
-
-  const ensureVideosStarted = async () => {
-    try {
-      if (arcadeVideoRef.current && arcadeVideoRef.current.paused) await arcadeVideoRef.current.play();
-    } catch {}
-    try {
-      if (tvVideoRef.current && tvVideoRef.current.paused) await tvVideoRef.current.play();
-    } catch {}
-  };
-
-  const pauseHtmlVideos = () => {
-    try { arcadeVideoRef.current?.pause(); } catch {}
-    try { tvVideoRef.current?.pause(); } catch {}
-  };
-
   const setTimeline = (sec: number) => {
     const t = clamp(sec, 0, TOTAL_SECONDS);
 
@@ -260,8 +221,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
       mixer.update(0);
     }
 
-    if (arcadeVideoRef.current) arcadeVideoRef.current.currentTime = clamp(t - 30, 0, 25);
-    if (tvVideoRef.current) tvVideoRef.current.currentTime = clamp(t - 55, 0, 35);
   };
 
   const goPrevBeat = () => {
@@ -351,7 +310,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const startPlayback = async () => {
     if (galleryOpenRef.current) return;
 
-    await ensureVideosStarted();
     isPlayingRef.current = true;
     setIsPlaying(true);
 
@@ -367,7 +325,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     if (!isLoadedRef.current) return;
     if (galleryOpenRef.current) return;
 
-    await ensureVideosStarted();
     setIsPlaying((v) => !v);
   };
 
@@ -384,10 +341,8 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     resumeAfterGalleryRef.current = isPlayingRef.current;
 
     stopPlayback();
-    pauseHtmlVideos();
 
     galleryOpenRef.current = true;
-    setGalleryKey(picName);
     setGalleryTitle(title || 'Gallery');
     setGallerySrc(src);
     setGalleryOpen(true);
@@ -396,8 +351,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const closeGallery = () => {
     galleryOpenRef.current = false;
     setGalleryOpen(false);
-
-    setGalleryKey(null);
     setGalleryTitle('');
     setGallerySrc('');
 
@@ -723,9 +676,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
       renderer.dispose();
 
-      arcadeTexRef.current?.dispose();
-      tvTexRef.current?.dispose();
-
       draco.dispose();
       ktx2.dispose();
     };
@@ -736,7 +686,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     if (!isLoadedRef.current) return;
     if (galleryOpenRef.current) return;
 
-    await ensureVideosStarted();
     isScrubbingRef.current = true;
     stopPlayback();
   };
