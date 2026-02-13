@@ -31,10 +31,10 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
     bottomRef.current?.scrollIntoView({ behavior, block: 'end' });
   };
 
-  // Memory-only delete tokens (lost on refresh) => delete allowed only before refresh
+  // Memory-only delete tokens (lost on refresh) -> delete allowed only before refresh
   const [deleteTokens, setDeleteTokens] = useState<Record<string, string>>({});
 
-  // Optional owner tools (for Update tests)
+  // Owner tools
   const [ownerToken, setOwnerToken] = useState('');
   const isOwner = useMemo(() => ownerToken.length > 0, [ownerToken]);
 
@@ -67,8 +67,8 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       if (!res.ok) throw new Error(data?.error || 'Failed to load');
       setItems(data.items || []);
     } catch (e: unknown) {
-        const msg = e instanceof Error ? e.message : 'Failed to load';
-        setError(msg);
+      const msg = e instanceof Error ? e.message : 'Failed to load';
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -176,37 +176,38 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       onTouchStartCapture={bringToFront}
       style={{ zIndex: zIndexRef.current }}
       className="fixed flex items-center justify-center animate-slideUp touch-manipulation
-        w-[94vw] max-w-6xl
-        h-[82vh] max-h-[900px] min-h-[650px]
+        w-[96vw] sm:w-[94vw] max-w-6xl
+        h-[88vh] sm:h-[82vh] max-h-[900px] min-h-[560px] sm:min-h-[650px]
         left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />
 
-        {/* Window */}
-        <div className="border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10 overflow-hidden bg-[#12162A]">
-          {/* Top Bar */}
+        <div className="border-[4px] sm:border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10 overflow-hidden bg-[#12162A]">
+          
+          {/* Header */}
           <div
             onMouseDown={(e) => {
               onMouseDown(e);
               bringToFront();
             }}
-            className="flex items-center justify-center bg-[#1B2140] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move text-center relative"
+            className="shrink-0 flex items-center justify-center bg-[#1B2140] border-b-[3px] sm:border-b-[4px] border-[#36312C]
+              px-3 sm:px-4 py-1.5 sm:py-2 cursor-move text-center relative"
           >
-            <span className="font-bold text-[#F9F2E4] w-full pulse-glow">Suggestions</span>
-            <div className="absolute right-4 flex gap-2">
+            <span className="font-bold text-[#F9F2E4] w-full pulse-glow text-sm sm:text-base">Suggestions</span>
+            <div className="absolute right-3 sm:right-4 flex gap-2">
               <button
                 onClick={handleClose}
-                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4]
-                  border-[3.5px] border-[#36312C] text-[#36312C] font-extrabold hover:bg-[#757ed3] transition-colors"
+                className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full bg-[#F9F2E4]
+                  border-[3px] sm:border-[3.5px] border-[#36312C] text-[#36312C] font-extrabold hover:bg-[#757ed3] transition-colors text-sm sm:text-base"
                 aria-label="Minimize"
               >
                 −
               </button>
               <button
                 onClick={handleClose}
-                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4]
-                  border-[3.5px] border-[#36312C] text-[#36312C] font-extrabold hover:bg-[#c4576e] transition-colors"
+                className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full bg-[#F9F2E4]
+                  border-[3px] sm:border-[3.5px] border-[#36312C] text-[#36312C] font-extrabold hover:bg-[#c4576e] transition-colors text-sm sm:text-base"
                 aria-label="Close"
               >
                 ✕
@@ -215,140 +216,135 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
           </div>
 
           {/* Body */}
-          <div className="flex flex-1 min-h-0">
+          <div className="flex flex-1 min-h-0 flex-col sm:flex-row">
+
             {/* Sidebar */}
-            <div className="w-[210px] shrink-0 bg-[#161B33] border-r-[4px] border-[#36312C] p-3 text-[#F9F2E4]">
-              <div className="text-xs uppercase tracking-widest opacity-70 mb-2">Channels</div>
+            <div
+              className="w-full sm:w-[210px] shrink-0 bg-[#161B33]
+                border-b-[4px] sm:border-b-0 sm:border-r-[4px] border-[#36312C]
+                p-2 sm:p-3 text-[#F9F2E4]"
+            >
+              <div className="text-[10px] sm:text-xs uppercase tracking-widest opacity-70 mb-2">Channels</div>
 
-              <button
-                data-testid="channel-idea"
-                onClick={() => setChannel('idea')}
-                className={`w-full text-left px-3 py-2 rounded-lg border-[3px] border-[#36312C] mb-2 transition-colors
-                  ${channel === 'idea' ? 'bg-[#22306B]' : 'bg-[#1B2140] hover:bg-[#22306B]'}`}
-              >
-                <span className="opacity-80">#</span> ideas
-              </button>
+              <div className="grid grid-cols-2 gap-2 sm:block">
+                <button
+                  data-testid="channel-idea"
+                  onClick={() => setChannel('idea')}
+                  className={`w-full text-left px-3 py-1.5 sm:py-2 rounded-lg border-[3px] border-[#36312C] transition-colors text-xs sm:text-sm
+                    ${channel === 'idea' ? 'bg-[#22306B]' : 'bg-[#1B2140] hover:bg-[#22306B]'}`}
+                >
+                  <span className="opacity-80">#</span> ideas
+                </button>
 
-              <button
-                data-testid="channel-feedback"
-                onClick={() => setChannel('feedback')}
-                className={`w-full text-left px-3 py-2 rounded-lg border-[3px] border-[#36312C] transition-colors
-                  ${channel === 'feedback' ? 'bg-[#22306B]' : 'bg-[#1B2140] hover:bg-[#22306B]'}`}
-              >
-                <span className="opacity-80">#</span> feedback
-              </button>
-
-              <div className="mt-4 p-3 rounded-lg border-[3px] border-[#36312C] bg-[#562929] text-xs leading-relaxed">
+                <button
+                  data-testid="channel-feedback"
+                  onClick={() => setChannel('feedback')}
+                  className={`w-full text-left px-3 py-1.5 sm:py-2 rounded-lg border-[3px] border-[#36312C] transition-colors text-xs sm:text-sm
+                    ${channel === 'feedback' ? 'bg-[#22306B]' : 'bg-[#1B2140] hover:bg-[#22306B]'}`}
+                >
+                  <span className="opacity-80">#</span> feedback
+                </button>
+              </div>
+              <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg border-[3px] border-[#36312C] bg-[#562929] text-[10px] sm:text-xs leading-relaxed">
                 <div className="font-bold mb-1 text-[#F9F2E4]">Note</div>
                 <div className="opacity-90">
                   You can delete your message <span className="font-bold">only before you refresh the page</span>.
                 </div>
               </div>
-
-              {/* Owner tools (optional) */}
-              <div className="mt-4 p-3 rounded-lg border-[3px] border-[#36312C] bg-[#1B2140] text-xs">
+              <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg border-[3px] border-[#36312C] bg-[#1B2140] text-[10px] sm:text-xs">
                 <div className="font-bold mb-2">Owner tools</div>
-                <input data-testid="owner-token-input"
+                <input
+                  data-testid="owner-token-input"
                   value={ownerToken}
                   onChange={(e) => setOwnerToken(e.target.value)}
                   placeholder="Admin token (not saved)"
-                  className="w-full px-2 py-2 rounded-md bg-[#12162A] border-[2px] border-[#36312C] outline-none"
+                  className="w-full px-2 py-2 rounded-md bg-[#12162A] border-[2px] border-[#36312C] outline-none text-xs sm:text-sm"
                 />
                 <div className="opacity-70 mt-2">
-                  For “Update” (status) tests. Leave empty for public view.
+                  For updating messages status ^^
                 </div>
               </div>
             </div>
 
-            {/* Chat area */}
-            <div className="flex-1 flex flex-col min-w-0 bg-[#12162A]">
-              {/* Messages */}
-              <div ref={messagesContainerRef} className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 flex flex-col min-w-0 min-h-0 bg-[#12162A]">
+              <div
+                ref={messagesContainerRef}
+                className="flex-1 min-h-0 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-3"
+              >
                 {loading ? (
-                  <div className="text-[#F9F2E4] opacity-70">Loading…</div>
+                  <div className="text-[#F9F2E4] opacity-70 text-xs sm:text-sm">Loading…</div>
                 ) : items.length === 0 ? (
-                  <div className="text-[#F9F2E4] opacity-70">No messages yet :O</div>
+                  <div className="text-[#F9F2E4] opacity-70 text-xs sm:text-sm">No messages yet :O</div>
                 ) : (
                   items.map((m, idx) => {
                     const canDelete = isOwner || Boolean(deleteTokens[m.id]);
                     return (
-                      <div
-                        key={m.id}
-                        data-testid={`msg-${m.id}`}
-                        className="flex gap-3 items-start"
-                      >
-                        {/* Avatar dot */}
-                        <div className="w-10 h-10 rounded-full border-[3px] border-[#36312C] shrink-0"
-                            style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#22306B' }}
+                      <div key={m.id} data-testid={`msg-${m.id}`} className="flex gap-2 sm:gap-3 items-start">
+                        <div
+                          className="w-7 h-7 sm:w-10 sm:h-10 rounded-full border-[2px] sm:border-[3px] border-[#36312C] shrink-0"
+                          style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#22306B' }}
                         />
-
-                        {/* Bubble */}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[#F9F2E4] font-bold">
-                                {m.channel === 'idea' ? `Idea #${idx + 1}` : `Feedback #${idx + 1}`}
+                            <span className="text-[#F9F2E4] font-bold text-sm sm:text-base">
+                              {m.channel === 'idea' ? `Idea #${idx + 1}` : `Feedback #${idx + 1}`}
                             </span>
-
-                            <span className="text-[#F9F2E4] opacity-50 text-xs">
+                            <span className="text-[#F9F2E4] opacity-50 text-[10px] sm:text-xs">
                               {new Date(m.created_at).toLocaleString()}
                             </span>
-
-                            {/* status badge (owner updates) */}
                             <span
-                                className="ml-auto text-xs px-2 py-[2px] rounded-full border-[2px] border-[#36312C] text-[#F9F2E4]"
-                                style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#1B2140' }}
+                              className="ml-auto text-[10px] sm:text-xs px-2 py-[1px] sm:py-[2px] rounded-full border-[2px] border-[#36312C] text-[#F9F2E4]"
+                              style={{ backgroundColor: m.status === 'new' ? '#7E4040' : '#1B2140' }}
                             >
-                                {m.status}
+                              {m.status}
                             </span>
-
                           </div>
-
+                          
                           <div
-                              className="mt-1 p-3 rounded-xl border-[3px] text-[#F9F2E4] break-words"
-                              style={{
-                                  borderColor: m.status === 'new' ? '#7E4040' : '#36312C',
-                                  backgroundColor: m.status === 'new' ? '#231A2D' : '#1B2140', // subtle tint for "new"
-                              }}
+                            className="mt-1 p-2 sm:p-3 rounded-lg sm:rounded-xl border-[2px] sm:border-[3px] text-[#F9F2E4] break-words text-xs sm:text-sm max-h-60 overflow-y-auto whitespace-pre-wrap"
+                            style={{
+                              borderColor: m.status === 'new' ? '#7E4040' : '#36312C',
+                              backgroundColor: m.status === 'new' ? '#231A2D' : '#1B2140',
+                            }}
                           >
                             {m.message}
                           </div>
 
-
-                          <div className="mt-2 flex gap-2">
+                          <div className="mt-2 flex gap-2 flex-wrap">
                             {canDelete ? (
-                                <button
-                                    data-testid={`delete-${m.id}`}
-                                    onClick={() => deleteMsg(m.id)}
-                                    className="text-xs px-3 py-1 rounded-lg border-[3px] border-[#36312C] bg-[#2B3057] text-[#F9F2E4] hover:bg-[#353C6B] transition-colors"
-                                >
-                                    {isOwner ? 'Delete' : 'Delete (until refresh)'}
-                                </button>
+                              <button
+                                data-testid={`delete-${m.id}`}
+                                onClick={() => deleteMsg(m.id)}
+                                className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-lg border-[2px] sm:border-[3px] border-[#36312C]
+                                  bg-[#2B3057] text-[#F9F2E4] hover:bg-[#353C6B] transition-colors"
+                              >
+                                {isOwner ? 'Delete' : 'Delete (until refresh)'}
+                              </button>
                             ) : (
-                                <span className="text-xs text-[#F9F2E4] opacity-40">Delete unavailable</span>
+                              <span className="text-[10px] sm:text-xs text-[#F9F2E4] opacity-40">Delete unavailable</span>
                             )}
-
                             {isOwner && m.status === 'new' ? (
-                                <button data-testid={`mark-seen-${m.id}`}
-                                    onClick={() => updateStatus(m.id, 'seen')}
-                                    className="text-xs px-3 py-1 rounded-lg border-[3px] border-[#36312C] bg-[#2B3057] text-[#F9F2E4] hover:bg-[#353C6B] transition-colors"
-                                >
-                                    Mark seen
-                                </button>
+                              <button
+                                data-testid={`mark-seen-${m.id}`}
+                                onClick={() => updateStatus(m.id, 'seen')}
+                                className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-lg border-[2px] sm:border-[3px] border-[#36312C]
+                                  bg-[#2B3057] text-[#F9F2E4] hover:bg-[#353C6B] transition-colors"
+                              >
+                                Mark seen
+                              </button>
                             ) : null}
-
                           </div>
                         </div>
                       </div>
                     );
                   })
                 )}
-                <div ref={bottomRef} /> {/* bottom marker for scrolling */}
+                <div ref={bottomRef} />
               </div>
 
-              {/* Composer */}
-              <div className="border-t-[4px] border-[#36312C] p-3 bg-[#161B33]">
+              <div className="shrink-0 border-t-[3px] sm:border-t-[4px] border-[#36312C] p-2 sm:p-3 bg-[#161B33]">
                 {error ? (
-                  <div className="mb-2 text-sm px-3 py-2 rounded-lg border-[3px] border-[#36312C] bg-[#2A1330] text-[#F9F2E4]">
+                  <div className="mb-2 text-xs sm:text-sm px-3 py-2 rounded-lg border-[2px] sm:border-[3px] border-[#36312C] bg-[#2A1330] text-[#F9F2E4]">
                     {error}
                   </div>
                 ) : null}
@@ -361,21 +357,20 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
                     rows={2}
                     maxLength={240}
                     placeholder={`Send a ${channel}… (max 240 chars)`}
-                    className="flex-1 resize-none px-3 py-2 rounded-lg bg-[#12162A] text-[#F9F2E4]
-                      border-[3px] border-[#36312C] outline-none"
+                    className="flex-1 resize-none px-2 sm:px-3 py-2 rounded-lg bg-[#12162A] text-[#F9F2E4]
+                      border-[2px] sm:border-[3px] border-[#36312C] outline-none text-xs sm:text-sm"
                   />
-
                   <button
                     data-testid="composer-send"
                     onClick={send}
-                    className="px-4 py-2 rounded-lg border-[3px] border-[#36312C] bg-[#22306B] text-[#F9F2E4]
-                      hover:bg-[#2C3A7A] transition-colors font-bold"
+                    className="px-3 sm:px-4 py-2 rounded-lg border-[2px] sm:border-[3px] border-[#36312C] bg-[#22306B] text-[#F9F2E4]
+                      hover:bg-[#2C3A7A] transition-colors font-bold text-xs sm:text-base"
                   >
                     Send
                   </button>
                 </div>
 
-                <div className="mt-2 text-xs text-[#F9F2E4] opacity-60">
+                <div className="mt-2 text-[10px] sm:text-xs text-[#F9F2E4] opacity-60">
                   Warning: you can delete your message only before refresh. Profanity and links are blocked.
                 </div>
               </div>

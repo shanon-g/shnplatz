@@ -8,7 +8,7 @@ import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
 import SuggestionsOverlay from './components/SuggestionsOverlay';
-// import JourneyOverlay from './components/JourneyOverlay';
+import JourneyOverlay from './components/JourneyOverlay';
 
 
 export default function Home() {
@@ -27,7 +27,7 @@ export default function Home() {
   const offset = useRef({ x: 0, y: 0 });
   const activeRef = useRef<React.RefObject<HTMLDivElement | null> | null>(null);
 
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);      
   const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
   const [showBlackScreen, setShowBlackScreen] = useState(true);
@@ -331,13 +331,13 @@ export default function Home() {
             />
           )}
 
-          {/* {showJourney && (
+          {showJourney && (
             <JourneyOverlay
               journeyRef={journeyRef}
               onMouseDown={(e) => onMouseDown(e, journeyRef)}
               setShowJourney={setShowJourney}
             />
-          )} */}
+          )}
 
         </main>
 
