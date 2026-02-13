@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, {
@@ -12,6 +13,7 @@ import React, {
 import { getNextZIndex } from '../utils/zIdxManager';
 
 import * as THREE from 'three';
+
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
@@ -24,13 +26,21 @@ interface Props {
   setShowJourney: Dispatch<SetStateAction<boolean>>;
 }
 
+interface GLTFResult {
+  scene: any;
+  scenes: any[];
+  animations: any[];
+  cameras: any[];
+  asset: object;
+  userData: object;
+}
+
 const MODEL_URL = '/journey/room.glb';
 const ARCADE_VIDEO_URL = '/journey/arcade.mp4';
 const TV_VIDEO_URL = '/journey/tv.mp4';
 
 const TOTAL_SECONDS = 90;
 
-// Beats timeline (seconds)
 const BEATS: Beat[] = [
   { label: 'Door + BINUS Inauguration', t: 0 },
   { label: 'FP + Mentor', t: 14 },
@@ -41,7 +51,6 @@ const BEATS: Beat[] = [
 
 const PIC_TITLES: Record<string, string> = {
   pic_entrance: 'BINUS Inauguration 2023',
-
   pic_himti1a: 'TECHNO - Bekasi Booth',
   pic_himti1b: 'TECHNO - Committeee',
   pic_himti1c: 'TECHNO - Visualization Div.',
@@ -55,7 +64,6 @@ const PIC_TITLES: Record<string, string> = {
   pic_himti8a: 'Kunjungan Kerja Ketua Organisasi 2025/2026',
   pic_himti8b: 'HIMTI x BNEC',
   pic_himti9: 'ICPC 2025',
-
   pic_shelf1: 'Mentor MC',
   pic_shelf2: 'Mentor B27',
   pic_shelf3: 'Mentor B28',
@@ -66,7 +74,6 @@ const PIC_TITLES: Record<string, string> = {
 
 const PIC_IMAGES: Record<string, string> = {
   pic_entrance: '/journey/gallery/pic_entrance.png',
-
   pic_himti1a: '/journey/gallery/pic_himti1a.png',
   pic_himti1b: '/journey/gallery/pic_himti1b.png',
   pic_himti1c: '/journey/gallery/pic_himti1c.png',
@@ -80,7 +87,6 @@ const PIC_IMAGES: Record<string, string> = {
   pic_himti8a: '/journey/gallery/pic_himti8a.png',
   pic_himti8b: '/journey/gallery/pic_himti8b.png',
   pic_himti9: '/journey/gallery/pic_himti9.png',
-
   pic_shelf1: '/journey/gallery/pic_shelf1.png',
   pic_shelf2: '/journey/gallery/pic_shelf2.png',
   pic_shelf3: '/journey/gallery/pic_shelf3.png',
@@ -115,7 +121,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const [galleryOpen, setGalleryOpen] = useState(false);
   const galleryOpenRef = useRef(false);
 
-  const [galleryKey, setGalleryKey] = useState<string | null>(null);
   const [galleryTitle, setGalleryTitle] = useState<string>('');
   const [gallerySrc, setGallerySrc] = useState<string>('');
 
@@ -130,7 +135,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
   const isPlayingRef = useRef(false);
   const isScrubbingRef = useRef(false);
 
-  // Three refs
+  // Three refs - Using 'any' to bypass your environment's type conflicts
   const rendererRef = useRef<any>(null);
   const sceneRef = useRef<any>(null);
   const cameraRef = useRef<any>(null);
@@ -349,7 +354,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     setIsPlaying((v) => !v);
   };
 
-  // --- Gallery open/close (THIS is where resume is fixed) ---
+  // --- Gallery open/close ---
   const openGalleryFor = (picName: string) => {
     const title = getPicTitle(picName);
     const src = getPicImage(picName);
@@ -366,7 +371,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     pauseHtmlVideos();
 
     galleryOpenRef.current = true;
-    setGalleryKey(picName);
     setGalleryTitle(title || 'Gallery');
     setGallerySrc(src);
     setGalleryOpen(true);
@@ -376,16 +380,13 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
     galleryOpenRef.current = false;
     setGalleryOpen(false);
 
-    setGalleryKey(null);
     setGalleryTitle('');
     setGallerySrc('');
 
     const shouldResume = resumeAfterGalleryRef.current;
 
     if (shouldResume) {
-      // IMPORTANT: run after React state update so galleryOpenRef is already false
       setTimeout(() => {
-        // resync video frame to exact paused time
         const action = actionRef.current;
         const exactT = action ? clamp(action.time, 0, TOTAL_SECONDS) : timeSecRef.current;
         setTimeline(exactT);
@@ -472,7 +473,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
     gltfLoader.load(
       MODEL_URL,
-      (gltf: any) => {
+      (gltf: GLTFResult) => {
         if (disposed) return;
 
         scene.add(gltf.scene);
@@ -480,19 +481,21 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
         const maxAniso = renderer.capabilities.getMaxAnisotropy();
         gltf.scene.traverse((obj: any) => {
-          if (!obj?.isMesh) return;
-          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-          for (const m of mats) {
-            const map = m?.map;
-            if (map) {
-              map.anisotropy = maxAniso;
-              map.needsUpdate = true;
+          if (obj.isMesh) {
+            const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+            for (const m of mats) {
+              const map = m.map;
+              if (map) {
+                map.anisotropy = maxAniso;
+                map.needsUpdate = true;
+              }
             }
           }
         });
 
         gltf.scene.traverse((obj: any) => {
-          if (!obj?.isMesh) return;
+          if (!obj.isMesh) return;
+          
           const name = obj.name || '';
           if (!name.startsWith('pic_')) return;
 
@@ -509,15 +512,23 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
             transparent: true,
             side: THREE.DoubleSide,
           });
-          (m as any).toneMapped = false;
+          
+          m.toneMapped = false;
           obj.material = m;
         });
 
-        const exportedCam =
-          (gltf.cameras && gltf.cameras[0] ? gltf.cameras[0] : null) ||
-          (gltf.scene.getObjectByName('Camera') as any | null);
+        // Camera Logic
+        let exportedCam: any = null;
+        if (gltf.cameras && gltf.cameras.length > 0) {
+            exportedCam = gltf.cameras[0];
+        } else {
+            const camObj = gltf.scene.getObjectByName('Camera');
+            if (camObj && (camObj as any).isCamera) {
+                exportedCam = camObj;
+            }
+        }
 
-        if (exportedCam && exportedCam instanceof THREE.PerspectiveCamera) {
+        if (exportedCam && exportedCam.isPerspectiveCamera) {
           cameraRef.current = exportedCam;
           requestAnimationFrame(() => resize());
         }
@@ -768,7 +779,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />
 
         <div className="bg-[#e4cdac] border-[6px] border-[#36312C] rounded-xl w-full flex flex-col relative z-10">
-          {/* Top bar */}
           <div
             onMouseDown={(e) => {
               onMouseDown(e);
@@ -787,7 +797,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
             </div>
           </div>
 
-          {/* Viewport */}
           <div className="p-2 sm:p-4 pt-2 sm:pt-4">
             <div
               ref={viewportRef}
@@ -817,7 +826,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
             </div>
           </div>
 
-          {/* Controls */}
           <div className="px-2 sm:px-4 pb-2 sm:pb-3">
             <div className="bg-[#deb170] border-[2px] sm:border-[3px] border-[#36312C] rounded-xl p-2 sm:p-3 shadow-[6px_6px_0_0_#36312C]">
               <div className="flex flex-wrap items-center gap-2 justify-between">
@@ -883,7 +891,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
         </div>
       </div>
 
-      {/* GALLERY MODAL */}
       {galleryOpen && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center px-3 py-6"
@@ -903,9 +910,6 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
             <div className="flex items-center justify-between gap-3 bg-[#efeea4] border-b-[4px] border-[#36312C] px-4 py-2">
               <div className="min-w-0">
                 <div className="font-extrabold text-xs sm:text-base truncate">{galleryTitle}</div>
-                {/* {galleryKey && (
-                  <div className="text-[10px] sm:text-xs font-bold opacity-70 truncate">{galleryKey}</div>
-                )} */}
               </div>
 
               <button
