@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  openGraph: {
+    title: "shn's Platz | Portfolio Website",
+    description: "Explore my projects, journey, and skills in a retro interactive web-OS experience!",
+    url: 'https://shnplatz.vercel.app',
+    siteName: "shn's Platz",
+    type: 'website',
+  },
 };
 
 
