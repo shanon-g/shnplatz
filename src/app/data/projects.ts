@@ -17,7 +17,7 @@ export const projectsList: Project[] = [
     type: 'Frontend',
     category: "major",
     image: '/assets/projectImages/shnplatz.png',
-    description: 'Retro-themed personal portfolio built with Next.js, TypeScript, and Tailwind CSS. The site is modular, fully responsive, and deployed on Vercel for optimal performance and scalability.',
+    description: 'Retro-themed personal portfolio built with Next.js, TypeScript, Tailwind CSS, and Three JS elements. The site is modular, and fully responsive for optimal performance and scalability.',
     links: [
       'https://shnplatz.vercel.app',
       'https://github.com/shanon-g/shnplatz'
@@ -25,7 +25,8 @@ export const projectsList: Project[] = [
     techIcons: [
       { src: '/assets/typescript_icon.png', label: 'TypeScript' },
       { src: '/assets/nextjs_icon.png', label: 'Next.js' },
-      { src: '/assets/tailwind_icon.png', label: 'Tailwind CSS' }
+      { src: '/assets/tailwind_icon.png', label: 'Tailwind CSS' },
+      { src: '/assets/threejs_icon.png', label: 'Three.js' }
     ]
   },
   {

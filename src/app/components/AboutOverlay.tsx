@@ -102,20 +102,19 @@ export default function AboutOverlay({
                     <div>: Computer Science - Software Engineering</div>
 
                     <div className="font-bold">GPA</div>
-                    <div>: 3.9 (up to 4th semester)</div>
+                    <div>: 3.92 (up to 5th semester)</div>
                   </div>
 
                   <div>
-                    <p>
-                      Versatile <span className="font-bold">Full Stack Engineer</span> skilled across web, backend, game,
-                      and IoT development. Known for fast learning, adaptability, and delivering
-                      efficient, scalable solutions in diverse technical environments.
+                    <p className="text-sm">
+                      Aspiring <span className="font-bold">Full Stack Engineer</span> & <span className="font-bold">iOS Developer</span>. Known for fast learning, and adaptability.
                     </p>
                   </div>
 
                   <div>
                     <p className="font-bold">Notable Highlights:</p>
-                    <ul className="list-disc list-inside">
+                    <ul className="list-disc list-inside text-sm">
+                      <li>Junior iOS Developer at Apple Developer Academy 2026</li>
                       <li>Lab Assistant at Software Laboratory Center</li>
                       <li>Mentor (Scholarship) at SASC, BINUS University</li>
                       <li>Regional President of HIMTI (Himpunan Mahasiswa Teknik Informatika)</li>
@@ -125,10 +124,16 @@ export default function AboutOverlay({
 
                   <div>
                     <p className="font-bold">Language:</p>
-                    <ul className="list-disc list-inside">
+                    <ul className="list-disc list-inside text-sm">
                       <li>Indonesian – Native</li>
                       <li>English – Fluent</li>
                     </ul>
+                  </div>
+
+                  <div>
+                    <p className="font-bold text-[13px]">
+                      hint: try clicking on the <span className="underline">planes</span> 😌
+                    </p>
                   </div>
                 </div>
               </div>
@@ -254,9 +259,9 @@ export default function AboutOverlay({
                 <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10 relative inline-block w-full skill_motion">
                   <span className="relative z-10">^v^</span>
                 </h2>
-                <p className="text-center text-base sm:text-base mb-10 relative inline-block w-full">
+                {/* <p className="text-center text-base sm:text-base mb-10 relative inline-block w-full">
                   <span className="relative z-10">Hint: Click on planes!</span>
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
