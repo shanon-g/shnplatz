@@ -22,7 +22,7 @@ type Beat = { label: string; t: number };
 
 interface Props {
   journeyRef: RefObject<HTMLDivElement | null>;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
   setShowJourney: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -107,7 +107,7 @@ function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));
 }
 
-export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney }: Props) {
+export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourney }: Props) {
   const [isClosing, setIsClosing] = useState(false);
   const [zIndex, setZIndex] = useState(40);
 
@@ -705,8 +705,9 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
       onTouchStartCapture={bringToFront}
       style={{ zIndex }}
       className="fixed flex items-center justify-center
-                w-[92%] max-w-[1080px] 
-                h-[70%] max-h-[84vh] 2xl:max-h-[800px]
+                w-[94vw]
+                max-w-none sm:max-w-[1088px]
+                max-h-[92vh]
                 left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
@@ -714,11 +715,11 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
 
         <div className="bg-[#e4cdac] border-[6px] border-[#36312C] rounded-xl w-full flex flex-col relative z-10">
           <div
-            onMouseDown={(e) => {
-              onMouseDown(e);
+            onPointerDown={(e) => {
+              onPointerDown(e);
               bringToFront();
             }}
-            className="flex items-center justify-center bg-[#cd9647] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl relative"
+            className="touch-none flex items-center justify-center bg-[#cd9647] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl relative"
           >
             <span className="font-bold w-full text-center">Journey Player</span>
             <div className="absolute right-4 flex gap-2">

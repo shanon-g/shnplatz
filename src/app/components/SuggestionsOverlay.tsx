@@ -6,11 +6,11 @@ import { getNextZIndex } from '../utils/zIdxManager';
 
 type Props = {
   suggestionsRef: RefObject<HTMLDivElement | null>;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
   setShowSuggestions: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setShowSuggestions }: Props) {
+export default function SuggestionsOverlay({ suggestionsRef, onPointerDown, setShowSuggestions }: Props) {
   const [isClosing, setIsClosing] = useState(false);
 
   // bring-to-front without re-render issues on mobile
@@ -176,9 +176,9 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       onTouchStartCapture={bringToFront}
       style={{ zIndex: zIndexRef.current }}
       className="fixed flex items-center justify-center animate-slideUp touch-manipulation
-                w-[96%] sm:w-[94%] max-w-[1080px]
-                h-[88%] sm:h-[82%] max-h-[750px] min-h-[560px] sm:min-h-[650px]
-                left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
+        w-[96vw] sm:w-[94vw] max-w-6xl
+        h-[88vh] sm:h-[82vh] max-h-[900px] min-h-[560px] sm:min-h-[650px]
+        left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
         <div className="absolute -bottom-3 -right-3 w-full h-full rounded-xl bg-[#36312C] z-0" />
@@ -187,11 +187,11 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
           
           {/* Header */}
           <div
-            onMouseDown={(e) => {
-              onMouseDown(e);
+            onPointerDown={(e) => {
+              onPointerDown(e);
               bringToFront();
             }}
-            className="shrink-0 flex items-center justify-center bg-[#1B2140] border-b-[3px] sm:border-b-[4px] border-[#36312C]
+            className="touch-none shrink-0 flex items-center justify-center bg-[#1B2140] border-b-[3px] sm:border-b-[4px] border-[#36312C]
               px-3 sm:px-4 py-1.5 sm:py-2 cursor-move text-center relative"
           >
             <span className="font-bold text-[#F9F2E4] w-full pulse-glow text-sm sm:text-base">Suggestions</span>

@@ -7,7 +7,7 @@ import ProjectCard from './ProjectCard';
 interface Props {
   projects: Project[];
   projectsRef: RefObject<HTMLDivElement | null>;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
   setShowProjects: Dispatch<SetStateAction<boolean>>;
   viewMode: 'list' | 'detailed';
   setViewMode: Dispatch<SetStateAction<'list' | 'detailed'>>;
@@ -16,7 +16,7 @@ interface Props {
 export default function ProjectsOverlay({
   projects,
   projectsRef,
-  onMouseDown,
+  onPointerDown,
   setShowProjects,
   viewMode,
   setViewMode
@@ -103,8 +103,8 @@ export default function ProjectsOverlay({
       onTouchStartCapture={bringToFront}
       style={{ zIndex: zIndexRef.current }}
       className="fixed flex items-center justify-center animate-slideUp
-                w-[96%] max-w-[1080px]
-                h-[80%] max-h-[700px] min-h-[500px] sm:min-h-[650px]
+                w-[96vw] max-w-6xl
+                h-[80vh] max-h-[900px] min-h-[650px]
                 left-1/2 top-[47%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
@@ -112,11 +112,11 @@ export default function ProjectsOverlay({
         <div className="bg-[#F9F2E4] border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10">
           {/* Top Bar */}
           <div
-            onMouseDown={(e) => {
-              onMouseDown(e);
+            onPointerDown={(e) => {
+              onPointerDown(e);
               bringToFront();
             }}
-            className="flex items-center justify-center gap-2 bg-[#efeea4] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
+            className="touch-none flex items-center justify-center gap-2 bg-[#efeea4] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
           >
             <img src="/assets/logo.png" alt="logo" className="absolute left-4 w-13 h-13" />
             <span className="font-bold text-center w-full pulse-glow">Projects</span>
@@ -210,7 +210,7 @@ export default function ProjectsOverlay({
                     tone="major"
                   />
                   {majorOpen ? (
-                    <div className="p-4 bg-[#F6DADA]">
+                    <div className="p-4 bg-[#F6DADA] text-xs sm:text-base">
                       <table className="w-full text-left border-separate border-spacing-y-2 table-fixed">
                         <thead>
                           <tr className="border-b-[2px] border-[#36312C]">

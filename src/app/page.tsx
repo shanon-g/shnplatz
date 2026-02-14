@@ -97,8 +97,8 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const onMouseDown = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  const onPointerDown = (
+    e: React.PointerEvent<HTMLDivElement>,
     ref: React.RefObject<HTMLDivElement | null>
   ) => {
     const elem = ref.current;
@@ -111,13 +111,18 @@ export default function Home() {
       y: elem.offsetTop,
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    // Use pointer events for unified touch/mouse handling
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', onPointerUp);
+    document.addEventListener('pointercancel', onPointerUp); // Safety fallback for mobile
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handlePointerMove = (e: PointerEvent) => {
     const ref = activeRef.current;
     if (!ref || !ref.current) return;
+
+    // Optional: prevent default scrolling while dragging
+    e.preventDefault(); 
 
     const dx = e.clientX - pos.current.x;
     const dy = e.clientY - pos.current.y;
@@ -125,9 +130,10 @@ export default function Home() {
     ref.current.style.top = `${offset.current.y + dy}px`;
   };
 
-  const onMouseUp = () => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+  const onPointerUp = () => {
+    document.removeEventListener('pointermove', handlePointerMove);
+    document.removeEventListener('pointerup', onPointerUp);
+    document.removeEventListener('pointercancel', onPointerUp);
     activeRef.current = null;
   };
 
@@ -332,7 +338,7 @@ export default function Home() {
             <ProjectsOverlay
               projects={projectsList}
               projectsRef={projectsRef}
-              onMouseDown={(e) => onMouseDown(e, projectsRef)}
+              onPointerDown={(e) => onPointerDown(e, projectsRef)}
               setShowProjects={setShowProjects}
               viewMode={viewMode}
               setViewMode={setViewMode}
@@ -342,7 +348,7 @@ export default function Home() {
           {showAbout && (
             <AboutOverlay
               aboutRef={aboutRef}
-              onMouseDown={(e) => onMouseDown(e, aboutRef)}
+              onPointerDown={(e) => onPointerDown(e, aboutRef)}
               setShowAbout={setShowAbout}
             />
           )}
@@ -350,7 +356,7 @@ export default function Home() {
           {showContact && (
             <ContactOverlay
               contactRef={contactRef}
-              onMouseDown={(e) => onMouseDown(e, contactRef)}
+              onPointerDown={(e) => onPointerDown(e, contactRef)}
               setShowContact={setShowContact}
             />
           )}
@@ -358,7 +364,7 @@ export default function Home() {
           {showSuggestions && (
             <SuggestionsOverlay
               suggestionsRef={suggestionsRef}
-              onMouseDown={(e) => onMouseDown(e, suggestionsRef)}
+              onPointerDown={(e) => onPointerDown(e, suggestionsRef)}
               setShowSuggestions={setShowSuggestions}
             />
           )}
@@ -366,7 +372,7 @@ export default function Home() {
           {showJourney && (
             <JourneyOverlay
               journeyRef={journeyRef}
-              onMouseDown={(e) => onMouseDown(e, journeyRef)}
+              onPointerDown={(e) => onPointerDown(e, journeyRef)}
               setShowJourney={setShowJourney}
             />
           )}

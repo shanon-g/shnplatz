@@ -4,14 +4,14 @@ import { getNextZIndex } from '../utils/zIdxManager';
 
 interface Props {
   aboutRef: RefObject<HTMLDivElement | null>;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
   setShowAbout: Dispatch<SetStateAction<boolean>>;
 }
 
 
 export default function AboutOverlay({
   aboutRef,
-  onMouseDown,
+  onPointerDown,
   setShowAbout,
 }: Props) {
 
@@ -51,11 +51,11 @@ export default function AboutOverlay({
         <div className="bg-[#F9F2E4] border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10">
           {/* Top Bar */}
           <div
-            onMouseDown={(e) => {
-              onMouseDown(e);
+            onPointerDown={(e) => {
+              onPointerDown(e);
               bringToFront();
             }}
-            className="flex items-center justify-center gap-2 bg-[#a0b3e2] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
+            className="touch-none flex items-center justify-center gap-2 bg-[#a0b3e2] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
           >
             <img src="/assets/logo.png" alt="logo" className="absolute left-4 w-13 h-13" />
             <span className="font-bold text-center w-full pulse-glow">About Me</span>

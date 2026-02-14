@@ -4,14 +4,14 @@ import { getNextZIndex } from '../utils/zIdxManager';
 
 interface Props {
   contactRef: RefObject<HTMLDivElement | null>;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
   setShowContact: Dispatch<SetStateAction<boolean>>;
 }
 
 
 export default function ContactOverlay({
   contactRef,
-  onMouseDown,
+  onPointerDown,
   setShowContact,
 }: Props) {
 
@@ -41,7 +41,7 @@ export default function ContactOverlay({
       onPointerDownCapture={bringToFront} // bring to front on any click
       onTouchStartCapture={bringToFront}  // bring to front on any click
       style={{ zIndex }}
-      className="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[550px] 
+      className="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[500px] 
                 left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
@@ -49,11 +49,11 @@ export default function ContactOverlay({
         <div className="bg-[#F9F2E4] border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10">
           {/* Top Bar */}
           <div
-            onMouseDown={(e) => {
-              onMouseDown(e);
+            onPointerDown={(e) => {
+              onPointerDown(e);
               bringToFront();
             }}
-            className="flex items-center justify-center gap-2 bg-[#a4e2a0] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
+            className="touch-none flex items-center justify-center gap-2 bg-[#a4e2a0] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
           >
             <img src="/assets/logo.png" alt="logo" className="absolute left-4 w-13 h-13" />
             <span className="font-bold text-center w-full pulse-glow">Contact Me</span>

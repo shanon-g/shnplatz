@@ -23,7 +23,8 @@ module.exports = {
     screens: {
       xs: '480px',
       sm: '640px',
-      xl: '1920px'
+      xl: '1920px',
+      '2xl': '2560px'
     },
   },
   plugins: [],
