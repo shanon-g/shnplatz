@@ -10,7 +10,6 @@ import ContactOverlay from './components/ContactOverlay';
 import SuggestionsOverlay from './components/SuggestionsOverlay';
 import JourneyOverlay from './components/JourneyOverlay';
 
-
 export default function Home() {
   const [showProjects, setShowProjects] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'detailed'>('detailed');
@@ -26,6 +25,8 @@ export default function Home() {
   const pos = useRef({ x: 0, y: 0 });
   const offset = useRef({ x: 0, y: 0 });
   const activeRef = useRef<React.RefObject<HTMLDivElement | null> | null>(null);
+  
+  const availableFactsRef = useRef<number[]>([]);
 
   const [showSuggestions, setShowSuggestions] = useState(false);      
   const suggestionsRef = useRef<HTMLDivElement | null>(null);
@@ -89,7 +90,7 @@ export default function Home() {
     };
   }, [showBlackScreen]);
 
-  useEffect(() => {                    // At the start open About Overlay after 6s
+  useEffect(() => {                    // at the start open about overlay after 6s
     const timer = setTimeout(() => {
       setShowAbout(true);
     }, 6600);
@@ -114,14 +115,13 @@ export default function Home() {
     // Use pointer events for unified touch/mouse handling
     document.addEventListener('pointermove', handlePointerMove);
     document.addEventListener('pointerup', onPointerUp);
-    document.addEventListener('pointercancel', onPointerUp); // Safety fallback for mobile
+    document.addEventListener('pointercancel', onPointerUp); // safety fallback for mobile
   };
 
   const handlePointerMove = (e: PointerEvent) => {
     const ref = activeRef.current;
     if (!ref || !ref.current) return;
 
-    // Optional: prevent default scrolling while dragging
     e.preventDefault(); 
 
     const dx = e.clientX - pos.current.x;
@@ -237,7 +237,24 @@ export default function Home() {
               className="airdrop"
               style={{ left: drop.x, top: drop.y }}
               onAnimationEnd={() => {
-                const funFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+                
+                // funfact shuffle logic
+                if (availableFactsRef.current.length === 0) {
+                  // if bag is empty, fill it with indices [0, 1, 2, ... length-1]
+                  const indices = funFacts.map((_, i) => i);
+                  
+                  // shuffle the array (Fisher-Yates shuffle)
+                  for (let i = indices.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [indices[i], indices[j]] = [indices[j], indices[i]];
+                  }
+                  availableFactsRef.current = indices;
+                }
+                
+                // pull the next random fact out of the bag
+                const nextIndex = availableFactsRef.current.pop()!;
+                const funFact = funFacts[nextIndex];
+
                 const text = document.createElement('div');
                 text.className = 'explosion-text';
                 text.textContent = funFact;
