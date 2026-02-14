@@ -104,7 +104,7 @@ export default function ProjectsOverlay({
       style={{ zIndex: zIndexRef.current }}
       className="fixed flex items-center justify-center animate-slideUp
                 w-[96vw] max-w-6xl
-                h-[80vh] max-h-[900px] min-h-[650px]
+                h-[80vh] max-h-[750px] min-h-[650px]
                 left-1/2 top-[47%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>

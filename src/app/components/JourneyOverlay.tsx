@@ -707,7 +707,7 @@ export default function JourneyOverlay({ journeyRef, onMouseDown, setShowJourney
       className="fixed flex items-center justify-center
                 w-[94vw]
                 max-w-none sm:max-w-[1088px] lg:max-w-[1088px]
-                max-h-[92vh]
+                max-h-[92vh] 2xl:max-h-[850px]
                 left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>

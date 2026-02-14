@@ -177,7 +177,7 @@ export default function SuggestionsOverlay({ suggestionsRef, onMouseDown, setSho
       style={{ zIndex: zIndexRef.current }}
       className="fixed flex items-center justify-center animate-slideUp touch-manipulation
         w-[96vw] sm:w-[94vw] max-w-6xl
-        h-[88vh] sm:h-[82vh] max-h-[900px] min-h-[560px] sm:min-h-[650px]
+        h-[88vh] sm:h-[82vh] max-h-[750px] min-h-[560px] sm:min-h-[650px]
         left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative h-full w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
