@@ -117,7 +117,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
   const [isPlaying, setIsPlaying] = useState(false);
   const hasAutoplayedRef = useRef(false);
 
-  // --- Speed State ---
+  // Speed State
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const playbackSpeedRef = useRef(1);
 
@@ -144,7 +144,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
   const isPlayingRef = useRef(false);
   const isScrubbingRef = useRef(false);
 
-  // Three refs - Using 'any' to bypass your environment's type conflicts
+  // Three refs
   const rendererRef = useRef<any>(null);
   const sceneRef = useRef<any>(null);
   const cameraRef = useRef<any>(null);
@@ -177,7 +177,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
     galleryOpenRef.current = galleryOpen;
   }, [galleryOpen]);
 
-  // Sync state to ref and update HTML video speeds if they exist
+  // Sync state to ref and update HTML video speeds
   useEffect(() => {
     playbackSpeedRef.current = playbackSpeed;
   }, [playbackSpeed]);
@@ -328,7 +328,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
     setIsPlaying((v) => !v);
   };
 
-  // --- Gallery open/close ---
+  // Gallery open/close
   const openGalleryFor = (picName: string) => {
     const title = getPicTitle(picName);
     const src = getPicImage(picName);
@@ -706,8 +706,8 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
       style={{ zIndex }}
       className="fixed flex items-center justify-center
                 w-[94vw]
-                max-w-none sm:max-w-[1088px]
-                max-h-[92vh]
+                max-w-none sm:max-w-[1088px] lg:max-w-[1088px]
+                max-h-[92vh] 
                 left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className={`relative w-full ${isClosing ? 'dockDown' : 'dockUp'}`}>
@@ -719,10 +719,17 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
               onPointerDown(e);
               bringToFront();
             }}
-            className="touch-none flex items-center justify-center bg-[#cd9647] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl relative"
+            className="touch-none flex items-center justify-center gap-2 bg-[#cd9647] border-b-[4px] border-[#36312C] px-4 py-2 cursor-move rounded-t-xl text-center relative"
           >
-            <span className="font-bold w-full text-center">Journey Player</span>
+            <img src="/assets/logo.png" alt="logo" className="absolute left-4 w-13 h-13" />
+            <span className="font-bold text-center w-full pulse-glow">Journey Player</span>
             <div className="absolute right-4 flex gap-2">
+              <button
+                onClick={handleClose}
+                className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold hover:bg-[#757ed3] transition-colors duration-200"
+              >
+                −
+              </button>
               <button
                 onClick={handleClose}
                 className="w-6 h-6 flex items-center justify-center rounded-full bg-[#F9F2E4] border-[3.5px] border-[#36312C] text-[#36312C] text-base font-extrabold hover:bg-[#c4576e] transition-colors duration-200"
