@@ -16,4 +16,6 @@ export const funFacts = [
     "My favorite character in anime is Akashi Seijuro",
     "My favorite color is sky blue",
     "I can't stand & is allergic to the cold",
+    "Platz is german for 'place'",
+    "My favorite game is What Remains of Edith Finch",
 ];
