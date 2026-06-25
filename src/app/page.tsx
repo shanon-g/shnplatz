@@ -378,13 +378,13 @@ export default function Home() {
             />
           )}
 
-          {showSuggestions && (
+          {/* {showSuggestions && (
             <SuggestionsOverlay
               suggestionsRef={suggestionsRef}
               onPointerDown={(e) => onPointerDown(e, suggestionsRef)}
               setShowSuggestions={setShowSuggestions}
             />
-          )}
+          )} */}
 
           {showJourney && (
             <JourneyOverlay
