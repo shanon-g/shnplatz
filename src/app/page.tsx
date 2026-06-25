@@ -325,6 +325,7 @@ export default function Home() {
             </a>
           </button>
 
+          {/* TEMPORARILY HIDDEN
           <button data-testid="open-suggestions"
             onClick={() => setShowSuggestions(true)}
             className="hover:bg-[#7F9795] rounded-xl p-none sm:p-0.1 transition flex items-center justify-center flex-shrink"
@@ -335,6 +336,7 @@ export default function Home() {
               className="h-[15dvh] w-auto object-contain max-w-[110px] sm:max-w-[160px]" 
             />
           </button>
+          */}
 
           <button
             onClick={() => setShowJourney(true)}
@@ -378,13 +380,15 @@ export default function Home() {
             />
           )}
 
-          {/* {showSuggestions && (
+          {/* TEMPORARILY HIDDEN 
+          {showSuggestions && (
             <SuggestionsOverlay
               suggestionsRef={suggestionsRef}
               onPointerDown={(e) => onPointerDown(e, suggestionsRef)}
               setShowSuggestions={setShowSuggestions}
             />
-          )} */}
+          )}
+          */}
 
           {showJourney && (
             <JourneyOverlay
