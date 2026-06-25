@@ -7,7 +7,7 @@ import { projectsList } from './data/projects';
 import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
-import SuggestionsOverlay from './components/SuggestionsOverlay';
+// import SuggestionsOverlay from './components/SuggestionsOverlay';
 import JourneyOverlay from './components/JourneyOverlay';
 
 export default function Home() {
@@ -28,8 +28,8 @@ export default function Home() {
   
   const availableFactsRef = useRef<number[]>([]);
 
-  const [showSuggestions, setShowSuggestions] = useState(false);      
-  const suggestionsRef = useRef<HTMLDivElement | null>(null);
+  // const [showSuggestions, setShowSuggestions] = useState(false);      
+  // const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
   const [showBlackScreen, setShowBlackScreen] = useState(true);
   const [hideIntro, setHideIntro] = useState(false);
@@ -141,7 +141,7 @@ export default function Home() {
     setShowProjects(false);
     setShowAbout(false);
     setShowContact(false);
-    setShowSuggestions(false);
+    // setShowSuggestions(false);
     setShowJourney(false);
   };
 
@@ -380,7 +380,7 @@ export default function Home() {
             />
           )}
 
-          {/* TEMPORARILY HIDDEN 
+          {/* TEMPORARILY HIDDEN
           {showSuggestions && (
             <SuggestionsOverlay
               suggestionsRef={suggestionsRef}
