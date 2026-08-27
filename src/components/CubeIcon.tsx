@@ -1,16 +1,19 @@
 'use client';
 import React from 'react';
 
-type CubeIconProps = {
+type Props = {
   icon: { src: string; label: string };
   isActive: boolean;
   onClick: () => void;
+  // Carries the caller's own classes: `group` enables the desktop hover flip,
+  // responsive utilities decide which of the two copies is visible.
+  wrapCls: string;
 };
 
-export default function CubeIcon({ icon, isActive, onClick }: CubeIconProps) {
+export default function CubeIcon({ icon, isActive, onClick, wrapCls }: Props) {
   return (
     <div
-      className={`group cube-wrapper-sm ${isActive ? 'flipped' : ''}`}
+      className={`${wrapCls} cube-wrapper-sm ${isActive ? 'flipped' : ''}`}
       onClick={onClick}
     >
       <div className="cube-inner-sm">

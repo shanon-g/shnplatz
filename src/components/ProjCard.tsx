@@ -66,21 +66,17 @@ export default function ProjCard({ project }: Props) {
                   icon={icon}
                   isActive={activeIndex === i}
                   onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+                  wrapCls="group"
                 />
               </div>
 
               {/* Mobile tap-flip cube */}
-              <div
-                className={`block sm:hidden cube-wrapper-sm ${flippedMobile[i] ? 'flipped' : ''}`}
+              <CubeIcon
+                icon={icon}
+                isActive={Boolean(flippedMobile[i])}
                 onClick={() => handleMobileFlip(i)}
-              >
-                <div className="cube-inner-sm">
-                  <div className="cube-face-sm cube-front-sm">
-                    <img src={icon.src} alt={icon.label} className="w-7 h-7 object-contain" />
-                  </div>
-                  <div className="cube-face-sm cube-back-sm">{icon.label}</div>
-                </div>
-              </div>
+                wrapCls="block sm:hidden"
+              />
             </div>
           ))}
         </div>
