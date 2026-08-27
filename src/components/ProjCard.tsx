@@ -1,13 +1,13 @@
 'use client';
 import { useState } from 'react';
+import { Project } from '@/data/proj';
 import CubeIcon from './CubeIcon';
-import { Project } from '../data/projects';
 
 interface Props {
   project: Project;
 }
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjCard({ project }: Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [flippedMobile, setFlippedMobile] = useState<{ [key: number]: boolean }>({});
 

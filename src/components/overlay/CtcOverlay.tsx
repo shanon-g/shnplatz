@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, RefObject, Dispatch, SetStateAction, useState } from 'react';
-import { getNextZIndex } from '../utils/zIdxManager';
+import { getNextZIdx } from '@/lib/zIdx';
 
 interface Props {
   contactRef: RefObject<HTMLDivElement | null>;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export default function ContactOverlay({
+export default function CtcOverlay({
   contactRef,
   onPointerDown,
   setShowContact,
@@ -20,11 +20,11 @@ export default function ContactOverlay({
     
       useEffect(() => {
         // bring to top on open
-        setZIndex(getNextZIndex());
+        setZIndex(getNextZIdx());
       }, []);
     
       const bringToFront = () => {
-        setZIndex(getNextZIndex());
+        setZIndex(getNextZIdx());
       };
 
     const handleClose = () => {

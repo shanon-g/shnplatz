@@ -10,13 +10,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { getNextZIndex } from '../utils/zIdxManager';
-
 import * as THREE from 'three';
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
+
+import { getNextZIdx } from '@/lib/zIdx';
 
 type Beat = { label: string; t: number };
 
@@ -107,7 +107,7 @@ function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));
 }
 
-export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourney }: Props) {
+export default function JrnyOverlay({ journeyRef, onPointerDown, setShowJourney }: Props) {
   const [isClosing, setIsClosing] = useState(false);
   const [zIndex, setZIndex] = useState(40);
 
@@ -163,7 +163,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
 
   const beats = useMemo(() => BEATS, []);
 
-  useEffect(() => setZIndex(getNextZIndex()), []);
+  useEffect(() => setZIndex(getNextZIdx()), []);
 
   useEffect(() => {
     isPlayingRef.current = isPlaying;
@@ -196,7 +196,7 @@ export default function JourneyOverlay({ journeyRef, onPointerDown, setShowJourn
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
-  const bringToFront = () => setZIndex(getNextZIndex());
+  const bringToFront = () => setZIndex(getNextZIdx());
 
   const handleClose = () => {
     setIsClosing(true);

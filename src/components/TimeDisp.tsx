@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function TimeDisplay() {
+export default function TimeDisp() {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState(new Date());
 

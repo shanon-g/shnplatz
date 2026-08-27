@@ -1,5 +1,5 @@
 let currZ = 40;
 
-export function getNextZIndex() {
+export function getNextZIdx() {
   return ++currZ;
 }

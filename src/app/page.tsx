@@ -1,13 +1,13 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import TimeDisplay from './components/TimeDisplay';
-import ProjectsOverlay from './components/ProjectsOverlay';
-import { projectsList } from './data/projects';
-import { funFacts } from './data/funfacts';
-import AboutOverlay from './components/AboutOverlay';
-import ContactOverlay from './components/ContactOverlay';
-import JourneyOverlay from './components/JourneyOverlay';
+import TimeDisp from '@/components/TimeDisp';
+import AbtOverlay from '@/components/overlay/AbtOverlay';
+import CtcOverlay from '@/components/overlay/CtcOverlay';
+import JrnyOverlay from '@/components/overlay/JrnyOverlay';
+import ProjOverlay from '@/components/overlay/ProjOverlay';
+import { funFacts } from '@/data/funfacts';
+import { projectsList } from '@/data/proj';
 
 export default function Home() {
   const [showProjects, setShowProjects] = useState(false);
@@ -325,7 +325,7 @@ export default function Home() {
         {/* Main Panel */}
         <main className="relative min-h-0">
           {showProjects && (
-            <ProjectsOverlay
+            <ProjOverlay
               projects={projectsList}
               projectsRef={projectsRef}
               onPointerDown={(e) => onPointerDown(e, projectsRef)}
@@ -336,7 +336,7 @@ export default function Home() {
           )}
 
           {showAbout && (
-            <AboutOverlay
+            <AbtOverlay
               aboutRef={aboutRef}
               onPointerDown={(e) => onPointerDown(e, aboutRef)}
               setShowAbout={setShowAbout}
@@ -344,7 +344,7 @@ export default function Home() {
           )}
 
           {showContact && (
-            <ContactOverlay
+            <CtcOverlay
               contactRef={contactRef}
               onPointerDown={(e) => onPointerDown(e, contactRef)}
               setShowContact={setShowContact}
@@ -352,7 +352,7 @@ export default function Home() {
           )}
 
           {showJourney && (
-            <JourneyOverlay
+            <JrnyOverlay
               journeyRef={journeyRef}
               onPointerDown={(e) => onPointerDown(e, journeyRef)}
               setShowJourney={setShowJourney}
@@ -391,7 +391,7 @@ export default function Home() {
           <div className="flex gap-6 items-center">
             <img src="/assets/battery_icon.png" className="w-8" />
             <img src="/assets/wifi_icon.png" className="w-6" />
-            <TimeDisplay />
+            <TimeDisp />
           </div>
         </footer>
       </div>

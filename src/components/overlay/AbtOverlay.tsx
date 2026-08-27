@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, RefObject, Dispatch, SetStateAction, useState } from 'react';
-import { getNextZIndex } from '../utils/zIdxManager';
+import { getNextZIdx } from '@/lib/zIdx';
 
 interface Props {
   aboutRef: RefObject<HTMLDivElement | null>;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export default function AboutOverlay({
+export default function AbtOverlay({
   aboutRef,
   onPointerDown,
   setShowAbout,
@@ -22,11 +22,11 @@ export default function AboutOverlay({
     
       useEffect(() => {
         // bring to top on open
-        setZIndex(getNextZIndex());
+        setZIndex(getNextZIdx());
       }, []);
     
       const bringToFront = () => {
-        setZIndex(getNextZIndex());
+        setZIndex(getNextZIdx());
       };
 
     const handleClose = () => {

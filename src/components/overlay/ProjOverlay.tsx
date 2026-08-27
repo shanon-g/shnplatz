@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, RefObject, Dispatch, SetStateAction, useRef, useState } from 'react';
-import { Project } from '../data/projects';
-import { getNextZIndex } from '../utils/zIdxManager';
-import ProjectCard from './ProjectCard';
+import ProjCard from '@/components/ProjCard';
+import { Project } from '@/data/proj';
+import { getNextZIdx } from '@/lib/zIdx';
 
 interface Props {
   projects: Project[];
@@ -13,7 +13,7 @@ interface Props {
   setViewMode: Dispatch<SetStateAction<'list' | 'detailed'>>;
 }
 
-export default function ProjectsOverlay({
+export default function ProjOverlay({
   projects,
   projectsRef,
   onPointerDown,
@@ -32,13 +32,13 @@ export default function ProjectsOverlay({
   const minorProjects = projects.filter((p) => p.category === 'minor');
 
   useEffect(() => {
-    const next = getNextZIndex();
+    const next = getNextZIdx();
     zIndexRef.current = next;
     if (projectsRef.current) projectsRef.current.style.zIndex = String(next);
   }, [projectsRef]);
 
   const bringToFront = () => {
-    const next = getNextZIndex();
+    const next = getNextZIdx();
     zIndexRef.current = next;
     if (projectsRef.current) projectsRef.current.style.zIndex = String(next);
   };
@@ -170,7 +170,7 @@ export default function ProjectsOverlay({
                   {majorOpen ? (
                     <div className="space-y-2 p-3 bg-[#F6DADA]">
                       {majorProjects.map((project, i) => (
-                        <ProjectCard key={`major-${i}`} project={project} />
+                        <ProjCard key={`major-${i}`} project={project} />
                       ))}
                     </div>
                   ) : (
@@ -190,7 +190,7 @@ export default function ProjectsOverlay({
                   {minorOpen ? (
                     <div className="space-y-2 p-3 bg-[#EEE6FF]">
                       {minorProjects.map((project, i) => (
-                        <ProjectCard key={`minor-${i}`} project={project} />
+                        <ProjCard key={`minor-${i}`} project={project} />
                       ))}
                     </div>
                   ) : (
