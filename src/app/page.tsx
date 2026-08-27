@@ -7,7 +7,6 @@ import { projectsList } from './data/projects';
 import { funFacts } from './data/funfacts';
 import AboutOverlay from './components/AboutOverlay';
 import ContactOverlay from './components/ContactOverlay';
-// import SuggestionsOverlay from './components/SuggestionsOverlay';
 import JourneyOverlay from './components/JourneyOverlay';
 
 export default function Home() {
@@ -28,9 +27,6 @@ export default function Home() {
   
   const availableFactsRef = useRef<number[]>([]);
 
-  // const [showSuggestions, setShowSuggestions] = useState(false);      
-  // const suggestionsRef = useRef<HTMLDivElement | null>(null);
-
   const [showBlackScreen, setShowBlackScreen] = useState(true);
   const [hideIntro, setHideIntro] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -38,8 +34,6 @@ export default function Home() {
   const [showPlane, setShowPlane] = useState(false);
   const [airdrops, setAirdrops] = useState<{ x: number; y: number; id: number }[]>([]);
   const [planeClickable, setPlaneClickable] = useState(true);
-
-  const [homeReady, setHomeReady] = useState(false);
 
   // Spawn plane every 5s
   useEffect(() => {
@@ -141,7 +135,6 @@ export default function Home() {
     setShowProjects(false);
     setShowAbout(false);
     setShowContact(false);
-    // setShowSuggestions(false);
     setShowJourney(false);
   };
 
@@ -166,18 +159,9 @@ export default function Home() {
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
-            onEnded={() => {
-              setHomeReady(true);
-            }}
           />
         </div>
       )}
-
-      {homeReady ? (
-        <div data-testid="home-ready" className="sr-only">
-          ready
-        </div>
-      ) : null}
 
       {/* Background Grid */}
       <div
@@ -325,19 +309,6 @@ export default function Home() {
             </a>
           </button>
 
-          {/* TEMPORARILY HIDDEN
-          <button data-testid="open-suggestions"
-            onClick={() => setShowSuggestions(true)}
-            className="hover:bg-[#7F9795] rounded-xl p-none sm:p-0.1 transition flex items-center justify-center flex-shrink"
-          >
-            <img 
-              src="/assets/suggestions_icon.png" 
-              alt="Suggestions" 
-              className="h-[15dvh] w-auto object-contain max-w-[110px] sm:max-w-[160px]" 
-            />
-          </button>
-          */}
-
           <button
             onClick={() => setShowJourney(true)}
             className="hover:bg-[#7F9795] rounded-xl p-none sm:p-0.1 transition flex items-center justify-center flex-shrink"
@@ -379,16 +350,6 @@ export default function Home() {
               setShowContact={setShowContact}
             />
           )}
-
-          {/* TEMPORARILY HIDDEN
-          {showSuggestions && (
-            <SuggestionsOverlay
-              suggestionsRef={suggestionsRef}
-              onPointerDown={(e) => onPointerDown(e, suggestionsRef)}
-              setShowSuggestions={setShowSuggestions}
-            />
-          )}
-          */}
 
           {showJourney && (
             <JourneyOverlay
