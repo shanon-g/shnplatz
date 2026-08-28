@@ -15,14 +15,3 @@ export function pullFunFact(bag: number[]) {
 
   return funFacts[bag.pop()!];
 }
-
-export function spawnFactText(x: number, text: string) {
-  const el = document.createElement('div');
-  el.className = 'explosion-text';
-  el.textContent = text;
-  el.style.left = `${x}px`;
-  el.style.top = `calc(100vh - 120px)`; // sync with footer height
-
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 8000);
-}

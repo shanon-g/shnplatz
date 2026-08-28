@@ -3,7 +3,7 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { getNextZIdx } from '@/lib/zIdx';
 
-// State-driven stacking: re-renders the overlay when it is brought to front.
+// State-driven stacking
 export function useZIdxState() {
   const [zIdx, setZIdx] = useState(40);
 
@@ -15,8 +15,7 @@ export function useZIdxState() {
   };
 }
 
-// Ref-driven stacking: writes z-index straight to the DOM so bring-to-front
-// never re-renders. Used where re-rendering mid-touch caused issues on mobile.
+// Ref-driven stacking
 export function useZIdxRef(ref: RefObject<HTMLDivElement | null>) {
   const zIdxRef = useRef(40);
 

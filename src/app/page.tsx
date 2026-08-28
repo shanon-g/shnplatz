@@ -20,8 +20,6 @@ export default function Home() {
   const [showCtc, setShowCtc] = useState(false);
   const [showJrny, setShowJrny] = useState(false);
 
-  const [viewMode, setViewMode] = useState<'list' | 'detailed'>('detailed');
-
   const projRef = useRef<HTMLDivElement | null>(null);
   const abtRef = useRef<HTMLDivElement | null>(null);
   const ctcRef = useRef<HTMLDivElement | null>(null);
@@ -99,8 +97,6 @@ export default function Home() {
               winRef={projRef}
               onPointerDown={(e) => startDrag(e, projRef)}
               setShow={setShowProj}
-              viewMode={viewMode}
-              setViewMode={setViewMode}
             />
           )}
 

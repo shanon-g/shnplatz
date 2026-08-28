@@ -12,7 +12,7 @@ export const funFacts = [
     "One of my favorite movie is 'Knives Out'",
     "Thank you for visiting ^^",
     "I have a bad habit of not finishing video games",
-    "I can read korean's alphabet (Hangul)",
+    "I love learning new languages",
     "My favorite character in anime is Akashi Seijuro",
     "My favorite color is sky blue",
     "I can't stand & is allergic to the cold",

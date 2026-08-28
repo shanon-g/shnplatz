@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --footer-h: 66px; /* fallback until Footer.tsx measures itself */
 }
 
 @theme inline {
@@ -393,7 +394,7 @@ body {
   left: -100px;
   z-index: 15;
   animation:
-    planeFly 8s linear forwards,
+    planeFly 13s linear forwards,
     floatAndRotate 3s ease-in-out infinite;
   cursor: pointer;
 }
@@ -415,11 +416,11 @@ body {
     transform: translateY(-4vh) scale(1) rotate(25deg);
   }
   95% {
-    transform: translateY(calc(100vh - 225px)) scale(1) rotate(0deg);
+    transform: translateY(var(--drop-dist)) scale(1) rotate(0deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(calc(100vh - 225px)) scale(1.5) rotate(0deg);
+    transform: translateY(var(--drop-dist)) scale(1.5) rotate(0deg);
     opacity: 0;
   }
 }
@@ -429,6 +430,7 @@ body {
   width: 50px;
   height: auto;
   z-index: 16;
+  --drop-dist: 0px; /* set per airdrop in PlaneLayer.tsx */
   animation: dropWithExplosion 4s ease-in forwards;
   pointer-events: none;
 }

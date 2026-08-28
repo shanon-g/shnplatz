@@ -448,7 +448,7 @@ export default function JrnyOverlay({ winRef, onPointerDown, setShow }: Props) {
 
         gltf.scene.traverse((obj: any) => {
           if (!obj.isMesh) return;
-          
+
           const name = obj.name || '';
           if (!name.startsWith('pic_') && name !== 'arcade_screen' && name !== 'tv_screen') return;
 
@@ -465,7 +465,7 @@ export default function JrnyOverlay({ winRef, onPointerDown, setShow }: Props) {
             transparent: true,
             side: THREE.DoubleSide,
           });
-          
+
           m.toneMapped = false;
           obj.material = m;
         });
@@ -698,9 +698,9 @@ export default function JrnyOverlay({ winRef, onPointerDown, setShow }: Props) {
                 w-[94vw]
                 max-w-none sm:max-w-[1088px] lg:max-w-[1088px]
                 max-h-[92vh]
-                left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
-      stageCls="relative w-full"
-      panelCls="bg-[#e4cdac] border-[6px] border-[#36312C] rounded-xl w-full flex flex-col relative z-10"
+                left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      stageCls="relative w-full max-h-full"
+      panelCls="bg-[#e4cdac] border-[6px] border-[#36312C] rounded-xl w-full max-h-full flex flex-col relative z-10 overflow-hidden"
       barBg="bg-[#cd9647]"
       overlayExtra={galleryOpen && (
         <div
@@ -752,116 +752,118 @@ export default function JrnyOverlay({ winRef, onPointerDown, setShow }: Props) {
         </div>
       )}
     >
-      <div className="p-2 sm:p-4 pt-2 sm:pt-2">
-        <div
-          ref={viewportRef}
-          className={`relative w-full aspect-[16/9] bg-black rounded-lg overflow-hidden border-[3px] sm:border-[4px] border-[#36312C]
-                      ${galleryOpen ? 'blur-[2px] brightness-75' : ''}`}
-        >
-          <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="p-2 sm:p-4 pt-2 sm:pt-2">
           <div
-            ref={labelRef}
-            className={`absolute pointer-events-none px-3 py-1 text-[10px] sm:text-sm font-bold
-                       bg-[#F9F2E4] border-[3px] border-[#36312C] rounded-md
-                       shadow-[4px_4px_0_0_#36312C]
-                       -translate-x-1/2 -translate-y-[120%]
-                       ${hoverTitle ? 'opacity-100' : 'opacity-0'}`}
+            ref={viewportRef}
+            className={`relative w-full aspect-[16/9] bg-black rounded-lg overflow-hidden border-[3px] sm:border-[4px] border-[#36312C]
+                        ${galleryOpen ? 'blur-[2px] brightness-75' : ''}`}
           >
-            {hoverTitle ?? ''}
-          </div>
+            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-          {!isLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center text-[#F9F2E4] font-bold">
-              Loading Journey :D ...
-            </div>
-          )}
-
-          {galleryOpen && <div className="absolute inset-0 bg-black/35" />}
-        </div>
-      </div>
-
-      <div className="px-2 sm:px-4 pb-2 sm:pb-3">
-        <div className="bg-[#deb170] border-[2px] sm:border-[3px] border-[#36312C] rounded-xl p-2 sm:p-3 shadow-[6px_6px_0_0_#36312C]">
-          
-          <div className="flex flex-wrap items-center gap-2 justify-between">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={goPrevBeat}
-                disabled={!isLoaded || galleryOpen}
-                className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
-                title="Previous beat"
-              >
-                ⏮
-              </button>
-
-              <button
-                onClick={togglePlay}
-                disabled={!isLoaded || galleryOpen}
-                className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
-                title="Play / Pause"
-              >
-                {isPlaying ? '⏸ Pause' : '▶ Play'}
-              </button>
-
-              <button
-                onClick={goNextBeat}
-                disabled={!isLoaded || galleryOpen}
-                className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
-                title="Next beat"
-              >
-                ⏭
-              </button>
+            <div
+              ref={labelRef}
+              className={`absolute pointer-events-none px-3 py-1 text-[10px] sm:text-sm font-bold
+                         bg-[#F9F2E4] border-[3px] border-[#36312C] rounded-md
+                         shadow-[4px_4px_0_0_#36312C]
+                         -translate-x-1/2 -translate-y-[120%]
+                         ${hoverTitle ? 'opacity-100' : 'opacity-0'}`}
+            >
+              {hoverTitle ?? ''}
             </div>
 
-            {galleryOpen && (
-              <div className="text-[10px] sm:text-xs font-bold text-[#36312C]">
-                Gallery open • video paused
+            {!isLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center text-[#F9F2E4] font-bold">
+                Loading Journey :D ...
               </div>
             )}
-          </div>
 
-          {/* Speed */}
-          <div className="mt-1 flex items-center justify-between">
-            <div className="text-[8px] sm:text-xs font-bold text-[#36312C] opacity-80">
-              Hover to see titles, click to enhance pictures!
-            </div>
-            
-            <div className="flex gap-1 sm:gap-2">
-              {[1, 2, 4].map((speed) => (
+            {galleryOpen && <div className="absolute inset-0 bg-black/35" />}
+          </div>
+        </div>
+
+        <div className="px-2 sm:px-4 pb-2 sm:pb-3">
+          <div className="bg-[#deb170] border-[2px] sm:border-[3px] border-[#36312C] rounded-xl p-2 sm:p-3 shadow-[6px_6px_0_0_#36312C]">
+
+            <div className="flex flex-wrap items-center gap-2 justify-between">
+              <div className="flex items-center gap-2">
                 <button
-                  key={speed}
-                  onClick={() => setPlaybackSpeed(speed)}
+                  onClick={goPrevBeat}
                   disabled={!isLoaded || galleryOpen}
-                  className={`px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-md border-[2px] border-[#36312C] transition-colors disabled:opacity-50
-                    ${playbackSpeed === speed 
-                      ? 'bg-[#c4576e] text-[#F9F2E4]' 
-                      : 'bg-[#F9F2E4] text-[#36312C] hover:bg-[#b8d9d7]'}`}
+                  className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
+                  title="Previous beat"
                 >
-                  {speed}x
+                  ⏮
                 </button>
-              ))}
-            </div>
-          </div>
 
-          <div className={`mt-2 ${galleryOpen ? 'opacity-40 pointer-events-none' : ''}`}>
-            <input
-              type="range"
-              min={0}
-              max={TOTAL_SECONDS}
-              step={0.01}
-              value={timeSec}
-              onPointerDown={onScrubStart}
-              onPointerUp={onScrubEnd}
-              onChange={(e) => onScrubChange(parseFloat(e.target.value))}
-              className="w-full"
-            />
-            <div className="mt-0.1 flex items-center justify-between font-bold text-[#36312C] text-[10px] sm:text-xs">
-              <span>{timeSec.toFixed(2)}s</span>
-              <span>{TOTAL_SECONDS}s</span>
-            </div>
-          </div>
+                <button
+                  onClick={togglePlay}
+                  disabled={!isLoaded || galleryOpen}
+                  className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
+                  title="Play / Pause"
+                >
+                  {isPlaying ? '⏸ Pause' : '▶ Play'}
+                </button>
 
+                <button
+                  onClick={goNextBeat}
+                  disabled={!isLoaded || galleryOpen}
+                  className="px-3 py-2 text-xs sm:text-base rounded-lg bg-[#F9F2E4] border-[3px] border-[#36312C] font-extrabold hover:bg-[#b8d9d7] disabled:opacity-50"
+                  title="Next beat"
+                >
+                  ⏭
+                </button>
+              </div>
+
+              {galleryOpen && (
+                <div className="text-[10px] sm:text-xs font-bold text-[#36312C]">
+                  Gallery open • video paused
+                </div>
+              )}
+            </div>
+
+            {/* Speed */}
+            <div className="mt-1 flex items-center justify-between">
+              <div className="text-[8px] sm:text-xs font-bold text-[#36312C] opacity-80">
+                Hover to see titles, click to enhance pictures!
+              </div>
+
+              <div className="flex gap-1 sm:gap-2">
+                {[1, 2, 4].map((speed) => (
+                  <button
+                    key={speed}
+                    onClick={() => setPlaybackSpeed(speed)}
+                    disabled={!isLoaded || galleryOpen}
+                    className={`px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-md border-[2px] border-[#36312C] transition-colors disabled:opacity-50
+                      ${playbackSpeed === speed
+                        ? 'bg-[#c4576e] text-[#F9F2E4]'
+                        : 'bg-[#F9F2E4] text-[#36312C] hover:bg-[#b8d9d7]'}`}
+                  >
+                    {speed}x
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={`mt-2 ${galleryOpen ? 'opacity-40 pointer-events-none' : ''}`}>
+              <input
+                type="range"
+                min={0}
+                max={TOTAL_SECONDS}
+                step={0.01}
+                value={timeSec}
+                onPointerDown={onScrubStart}
+                onPointerUp={onScrubEnd}
+                onChange={(e) => onScrubChange(parseFloat(e.target.value))}
+                className="w-full"
+              />
+              <div className="mt-0.1 flex items-center justify-between font-bold text-[#36312C] text-[10px] sm:text-xs">
+                <span>{timeSec.toFixed(2)}s</span>
+                <span>{TOTAL_SECONDS}s</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </OverlayFrame>

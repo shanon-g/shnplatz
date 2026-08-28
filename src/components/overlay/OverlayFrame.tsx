@@ -18,8 +18,6 @@ interface Props {
   overlayExtra?: ReactNode;
 }
 
-// Shared retro window chrome: offset shadow, dock in/out animation, and the
-// draggable title bar with its minimize / close buttons.
 export default function OverlayFrame({
   winRef,
   zStyle,

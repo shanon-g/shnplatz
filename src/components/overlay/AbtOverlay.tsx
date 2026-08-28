@@ -25,8 +25,8 @@ export default function AbtOverlay({ winRef, onPointerDown, setShow }: Props) {
       onClose={close}
       title="About Me"
       isClosing={isClosing}
-      outerCls="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[500px]
-                left-1/2 top-[46%] transform -translate-x-1/2 -translate-y-1/2"
+      outerCls="fixed z-100 flex items-center justify-center w-[90%] max-w-4xl h-[500px] max-h-[90vh]
+                left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
       stageCls="relative h-full w-full"
       panelCls="bg-[#F9F2E4] border-[6px] border-[#36312C] rounded-xl h-full flex flex-col relative z-10"
       barBg="bg-[#a0b3e2]"

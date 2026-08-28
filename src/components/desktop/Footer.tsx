@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import TimeDisp from '@/components/TimeDisp';
 
 interface Props {
@@ -7,8 +8,30 @@ interface Props {
 }
 
 export default function Footer({ onCloseAll }: Props) {
+  const barRef = useRef<HTMLElement | null>(null);
+
+  // Publish the measured height so the airdrop landing point and the fun-fact
+  // spawn point can track the real footer instead of hardcoded offsets.
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+
+    const publish = () => {
+      document.documentElement.style.setProperty('--footer-h', `${bar.offsetHeight}px`);
+    };
+
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(bar);
+
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <footer className="opacity-95 z-[200] col-span-2 bg-[#7F9795] border-t-[4px] border-[#36312C] px-4 py-3 flex justify-between items-center text-[#F9F2E4] text-sm relative">
+    <footer
+      ref={barRef}
+      className="opacity-95 z-[200] col-span-2 bg-[#7F9795] border-t-[4px] border-[#36312C] px-4 py-3 flex justify-between items-center text-[#F9F2E4] text-sm relative"
+    >
       <div className="relative flex items-center">
 
         {/* Circle Button*/}
