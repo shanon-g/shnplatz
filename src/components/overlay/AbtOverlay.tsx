@@ -109,9 +109,10 @@ export default function AbtOverlay({ winRef, onPointerDown, setShow }: Props) {
               </h3>
               <div className="pt-2 flex flex-wrap justify-center items-center gap-6 px-4">
                 {[
-                  { icon: '/assets/typescript_icon.png', label: 'TypeScript' },
-                  { icon: '/assets/javascript_icon.png', label: 'JavaScript' },
+                  { icon: '/assets/swift_icon.png', label: 'TypeScript' },
+//                  { icon: '/assets/javascript_icon.png', label: 'JavaScript' },
                   { icon: '/assets/java_icon.png', label: 'Java' },
+                  { icon: '/assets/typescript_icon.png', label: 'TypeScript' },
                   { icon: '/assets/python_icon.png', label: 'Python' },
                   { icon: '/assets/php_icon.png', label: 'PHP' },
                   { icon: '/assets/c_icon.png', label: 'C' },
@@ -149,7 +150,7 @@ export default function AbtOverlay({ winRef, onPointerDown, setShow }: Props) {
               <div className="pt-2 flex flex-wrap justify-center items-center gap-6 px-4">
                 {[
                   { icon: '/assets/nextjs_icon.png', label: 'Next.js' },
-                  { icon: '/assets/react_icon.png', label: 'React' },
+//                  { icon: '/assets/react_icon.png', label: 'React' },
                   { icon: '/assets/express_icon.png', label: 'Express' },
                   { icon: '/assets/laravel_icon.png', label: 'Laravel' },
                   { icon: '/assets/tensorflow_icon.png', label: 'TensorFlow' },

@@ -36,6 +36,19 @@ export const projectsList: Project[] = [
     ]
   },
   {
+    name: 'Shot Cut',
+    language: 'Swift',
+    types: ['ai-ml', 'ios'],
+    image: '/assets/projectImages/shotcut.png',
+    description: 'Frame-extraction app for cinematographers to build shot list references. Using Apple\'s Vision framework, the app automatically processes videos & curates frames from scene changes, eliminating the need for manual scrubbing during pre-production. Collab project; mainly did front-end',
+    links: [
+      { kind: 'source', url: 'https://github.com/absolutecinema-c9' },
+    ],
+    techIcons: [
+      { src: '/assets/swift_icon.png', label: 'Swift' },
+    ]
+  },
+  {
     name: 'Skill Bridge',
     language: 'JavaScript',
     types: ['web'],
@@ -71,7 +84,7 @@ export const projectsList: Project[] = [
     language: 'Python',
     types: ['ai-ml'],
     image: '/assets/projectImages/asl.png',
-    description: 'Trained a deep learning model to classify American Sign Language (ASL) alphabet using a MobileNetV2 base with data augmentation and fine-tuning. Achieved 99.08% F1 Score on test set using 85k+ training images and class balancing. Collab Project',
+    description: 'Trained a deep learning model to classify American Sign Language (ASL) alphabet using a MobileNetV2 base with data augmentation and fine-tuning. Achieved 99.08% F1 Score on test set using 85k+ training images and class balancing.',
     links: [
       { kind: 'source', url: 'https://github.com/shanon-g/asl' }
     ],
@@ -116,7 +129,7 @@ export const projectsList: Project[] = [
     types: ['game', 'ios'],
     featured: false,
     image: '/assets/projectImages/feelo.png',
-    description: "An interactive emotion-learning app helping children aged 3–6 recognize emotions through movement-based scenarios with parental guidance, combining narrated story scenarios with AVFoundation and Vision-powered movement activities. Collab project, developed the user interface.",
+    description: "An interactive emotion-learning app helping children aged 3–6 recognize emotions through movement-based scenarios with parental guidance, combining narrated story scenarios with AVFoundation and Vision-powered movement activities. Collab project; developed the user interface.",
     links: [
       { kind: 'testflight', url: 'https://testflight.apple.com/join/kGEKqESh' }
     ],
@@ -131,7 +144,7 @@ export const projectsList: Project[] = [
     types: ['game', 'ios'],
     featured: true,
     image: '/assets/projectImages/sonicpals.png',
-    description: "An AR educational app, built with ARKit and RealityKit, helping children understand ultrasonic waves through an immersive, animal-point-of-view simulation with guided navigation, and end-of-level quiz. Collab project, mainly developed scene reconstruction logic.",
+    description: "An AR educational app, built with ARKit and RealityKit, helping children understand ultrasonic waves through an immersive, animal-point-of-view simulation with guided navigation, and end-of-level quiz. Collab project; developed scene reconstruction logic, and AR session.",
     links: [
       { kind: 'testflight', url: 'https://testflight.apple.com/join/sWyUugPY' }
     ],
