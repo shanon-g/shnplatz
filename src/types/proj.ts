@@ -17,7 +17,8 @@ export interface ProjLink {
 export interface Project {
   name: string;
   language: string;
-  type: ProjType;
+  // First entry is the primary tag — the one shown on cards.
+  types: ProjType[];
   featured?: boolean;
   image: string;
   description: string;

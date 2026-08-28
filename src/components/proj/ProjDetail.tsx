@@ -55,7 +55,9 @@ export default function ProjDetail({ project, onClose }: Props) {
         <div className="shrink-0 flex items-center justify-between gap-3 bg-[#efeea4] border-b-[4px] border-[#36312C] px-3 sm:px-4 py-2">
           <div className="min-w-0 flex items-center gap-2">
             <span className="font-extrabold text-xs sm:text-base truncate">{project.name}</span>
-            <ProjBadge type={project.type} />
+            {project.types.map((t) => (
+              <ProjBadge key={t} type={t} />
+            ))}
           </div>
 
           <button

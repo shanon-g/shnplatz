@@ -4,8 +4,7 @@ export const projectsList: Project[] = [
   {
     name: "shn's Platz (Portfolio)",
     language: 'TypeScript',
-    type: 'web',
-    featured: true,
+    types: ['web'],
     image: '/assets/projectImages/shnplatz.png',
     description: 'Retro-themed personal portfolio built with Next.js, TypeScript, Tailwind CSS, and Three JS elements. The site is modular, and fully responsive for optimal performance and scalability.',
     links: [
@@ -22,7 +21,7 @@ export const projectsList: Project[] = [
   {
     name: 'Portable Automatic Air Purifier - IoT',
     language: 'Python',
-    type: 'ai-ml',
+    types: ['ai-ml', 'web'],
     featured: true,
     image: '/assets/projectImages/paap.png',
     description: 'IoT prototype detects air quality with DHT11 & MQ135 sensors & activates air purifier based on LSTM-predicted pollution levels. Includes MongoDB storage, REST API, FastAPI + AI, Streamlit dashboard. Collab project; mainly helped model & database.',
@@ -39,7 +38,7 @@ export const projectsList: Project[] = [
   {
     name: 'Skill Bridge',
     language: 'JavaScript',
-    type: 'web',
+    types: ['web'],
     image: '/assets/projectImages/skillbridge.png',
     description: 'A matchmaking platform for collaborative skill exchange, built with React (Vite), Express, and MySQL in JavaScript. Features include swipe-to-match profiles, real-time messaging, and JWT-based authentication. Collab project; mainly made backend.',
     links: [
@@ -55,7 +54,7 @@ export const projectsList: Project[] = [
   {
     name: '76th (2D Platformer)',
     language: 'C# (Unity)',
-    type: 'game',
+    types: ['game'],
     image: '/assets/projectImages/76th.png',
     description: "A 2D platformer for Indonesia's 76th Independence, built with Unity featuring room-based level transitions, shooting mechanics, wall-jumping, and player animation control.",
     links: [
@@ -70,7 +69,7 @@ export const projectsList: Project[] = [
   {
     name: 'ASL Alphabet Classifier',
     language: 'Python',
-    type: 'ai-ml',
+    types: ['ai-ml'],
     image: '/assets/projectImages/asl.png',
     description: 'Trained a deep learning model to classify American Sign Language (ASL) alphabet using a MobileNetV2 base with data augmentation and fine-tuning. Achieved 99.08% F1 Score on test set using 85k+ training images and class balancing. Collab Project',
     links: [
@@ -85,7 +84,7 @@ export const projectsList: Project[] = [
   {
     name: 'Christian Wijaya (Simple e-Commerce)',
     language: 'JavaScript',
-    type: 'web',
+    types: ['web'],
     image: '/assets/projectImages/cw.png',
     description: 'A very simple luxury fashion brand website built with HTML, CSS, & JavaScript. Features responsive pages for product listings (filters), detail views, and event registration. Includes interactive elements like dynamic image previews, scroll-to-top buttons, and mobile-friendly navigation.',
     links: [
@@ -100,7 +99,7 @@ export const projectsList: Project[] = [
   {
     name: "Don't Tilt!",
     language: 'Swift',
-    type: 'game',
+    types: ['game', 'ios'],
     featured: false,
     image: '/assets/projectImages/donttilt.png',
     description: "A fast-paced motion-based iOS game. Keep your phone perfectly flat while completing randomized physical challenges like jumping or moonwalking against the clock, tracked via CoreMotion with CoreHaptics feedback when you start to tip. Solo project, live on the App Store.",
@@ -114,7 +113,7 @@ export const projectsList: Project[] = [
   {
     name: 'Feelo',
     language: 'Swift',
-    type: 'ios',
+    types: ['game', 'ios'],
     featured: false,
     image: '/assets/projectImages/feelo.png',
     description: "An interactive emotion-learning app helping children aged 3–6 recognize emotions through movement-based scenarios with parental guidance, combining narrated story scenarios with AVFoundation and Vision-powered movement activities. Collab project, developed the user interface.",
@@ -129,7 +128,7 @@ export const projectsList: Project[] = [
   {
     name: 'Sonic Pals',
     language: 'Swift',
-    type: 'ios',
+    types: ['game', 'ios'],
     featured: true,
     image: '/assets/projectImages/sonicpals.png',
     description: "An AR educational app, built with ARKit and RealityKit, helping children understand ultrasonic waves through an immersive, animal-point-of-view simulation with guided navigation, and end-of-level quiz. Collab project, mainly developed scene reconstruction logic.",

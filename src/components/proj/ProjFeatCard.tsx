@@ -25,7 +25,7 @@ export default function ProjFeatCard({ project, onOpen }: Props) {
       <div className="p-2 sm:p-2.5 flex flex-col gap-1 flex-1">
         <div className="flex items-start justify-between gap-1.5">
           <h3 className="font-extrabold text-[11px] sm:text-xs leading-tight">{project.name}</h3>
-          <ProjBadge type={project.type} />
+          <ProjBadge type={project.types[0]} />
         </div>
 
         <p className="text-[10px] sm:text-[11px] text-[#726e5f] line-clamp-2">{project.description}</p>

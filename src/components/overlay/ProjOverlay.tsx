@@ -33,7 +33,7 @@ export default function ProjOverlay({ projects, winRef, onPointerDown, setShow }
 
   const q = query.trim().toLowerCase();
   const shown = (p: Project) =>
-    p.name.toLowerCase().includes(q) && (filter === 'all' || p.type === filter);
+    p.name.toLowerCase().includes(q) && (filter === 'all' || p.types.includes(filter));
 
   const featured = projects.filter((p) => p.featured && shown(p));
   const rest = projects.filter((p) => !p.featured && shown(p));
